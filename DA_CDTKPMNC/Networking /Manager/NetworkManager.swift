@@ -82,5 +82,11 @@ extension NetworkManager: LoginRepositoryProtocol {
         )
     }
     
+    func signup(_ user: SignUpModel, completionHandler: @escaping (Result<UserSignUp, Error>) -> Void) {
+        request(target: .signup(user), completion: completionHandler)
+    }
     
+    func verifyOTP(userId: String, otp: Int, completionHandler: @escaping (AuthHandler) -> Void) {
+        request(target: .verifyOTP(userId, otp: otp), completion: completionHandler)
+    }
 }

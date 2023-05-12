@@ -7,6 +7,42 @@
 
 import Foundation
 
+struct SignUpModel: Codable {
+    
+    let userName, password, name: String
+    let gender: Int
+    let birthDate: BirthDate
+    let address: Address
+    
+    struct Address: Codable {
+        let wardID, street: String
+
+        enum CodingKeys: String, CodingKey {
+            case wardID = "wardId"
+            case street
+        }
+        
+        func toJson() -> [String: Any?] {
+            return ["wardID" : wardID ,
+                    "street" : street
+            ]
+        }
+    }
+    
+    struct BirthDate: Codable {
+        let year, month, day: Int
+        
+        func toJson() -> [String: Any?] {
+            return ["year" : year ,
+                    "month" : month,
+                    "day": day
+            ]
+        }
+    }
+
+    
+}
+
 protocol LoginRepositoryProtocol {
     
     typealias AuthHandler = Result<UserProfileResponse, Error>
@@ -25,4 +61,10 @@ protocol LoginRepositoryProtocol {
     
     func getListWard(id: String,
                      completionHandler: @escaping (WardHandler) -> Void)
+    
+    func signup(_ user: SignUpModel, completionHandler: @escaping (Result<UserSignUp, Error>) -> Void)
+    
+    func verifyOTP(userId: String,
+               otp: Int,
+               completionHandler: @escaping (AuthHandler) -> Void)
 }

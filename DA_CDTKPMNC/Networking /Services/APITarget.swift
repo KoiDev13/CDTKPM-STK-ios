@@ -23,6 +23,10 @@ enum APITarget {
     case getListWards(
         id: String
     )
+    
+    case signup(_ user: SignUpModel)
+    
+    case verifyOTP(_ userId: String, otp: Int)
 }
 
 extension APITarget: TargetType {
@@ -47,12 +51,18 @@ extension APITarget: TargetType {
             
         case .getListWards:
             return "Address/Ward/DistrictId"
+            
+        case .signup:
+            return "EndUser/Register"
+            
+        case .verifyOTP(let userId):
+            return "EndUser/VerifyRegister/\(userId)"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .login:
+        case .login, .signup, .verifyOTP:
             return .post
             
         default:
@@ -66,7 +76,7 @@ extension APITarget: TargetType {
     
     var task: Moya.Task {
         switch self {
-        case .login:
+        case .login, .signup:
             return .requestParameters(
                 parameters: parameters,
                 encoding: JSONEncoding.default
@@ -105,6 +115,19 @@ extension APITarget: TargetType {
             
         case .getListWards(let id):
             params["DistrictId"] = id
+            
+        case .signup(let user):
+            params["userName"] = user.userName
+            params["password"] = user.password
+            
+            params["name"] = user.name
+            params["gender"] = user.gender
+            
+            params["birthDate"] = user.birthDate.toJson()
+            params["address"] = user.address.toJson()
+            
+        case .verifyOTP(_, let otp):
+            params["otpValue"] = otp
         default:
             return [:]
         }

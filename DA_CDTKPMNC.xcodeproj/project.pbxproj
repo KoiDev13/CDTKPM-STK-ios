@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B1F00DD2A0D6016008B7509 /* SMSConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1F00DC2A0D6016008B7509 /* SMSConfirmationViewController.swift */; };
+		1B1F00DF2A0DF902008B7509 /* UserSignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1F00DE2A0DF902008B7509 /* UserSignUp.swift */; };
 		1B983BB62A09F28400C3D9E8 /* FlowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B983BB52A09F28400C3D9E8 /* FlowController.swift */; };
 		1B983BC02A0A492A00C3D9E8 /* BaseTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B983BBF2A0A492900C3D9E8 /* BaseTabbarController.swift */; };
 		1B983BC32A0A49E400C3D9E8 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B983BC22A0A49E400C3D9E8 /* ProfileViewController.swift */; };
@@ -36,6 +38,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1B1F00DC2A0D6016008B7509 /* SMSConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSConfirmationViewController.swift; sourceTree = "<group>"; };
+		1B1F00DE2A0DF902008B7509 /* UserSignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSignUp.swift; sourceTree = "<group>"; };
 		1B983BB52A09F28400C3D9E8 /* FlowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowController.swift; sourceTree = "<group>"; };
 		1B983BBF2A0A492900C3D9E8 /* BaseTabbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabbarController.swift; sourceTree = "<group>"; };
 		1B983BC22A0A49E400C3D9E8 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -86,6 +90,14 @@
 				EE32F2DF777D3065F1516EA9 /* Pods_DA_CDTKPMNC.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1B1F00DB2A0D5FF8008B7509 /* SMS  */ = {
+			isa = PBXGroup;
+			children = (
+				1B1F00DC2A0D6016008B7509 /* SMSConfirmationViewController.swift */,
+			);
+			path = "SMS ";
 			sourceTree = "<group>";
 		};
 		1B983BB42A09F24D00C3D9E8 /* Navigations */ = {
@@ -207,6 +219,7 @@
 			children = (
 				1BE7933A2A095E5C00A9F42A /* User.swift */,
 				1B983BC92A0AA91F00C3D9E8 /* Address.swift */,
+				1B1F00DE2A0DF902008B7509 /* UserSignUp.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -232,6 +245,7 @@
 		1BE793402A09624800A9F42A /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				1B1F00DB2A0D5FF8008B7509 /* SMS  */,
 				1B983BC62A0AA10000C3D9E8 /* Sign up  */,
 				1B983BC12A0A49D100C3D9E8 /* Profile */,
 				1B983BBE2A0A491B00C3D9E8 /* Tabbar */,
@@ -395,6 +409,7 @@
 				1BE793022A07850200A9F42A /* AppDelegate.swift in Sources */,
 				1BE793182A07862C00A9F42A /* BaseViewController.swift in Sources */,
 				1BE793252A07994500A9F42A /* APIClient.swift in Sources */,
+				1B1F00DD2A0D6016008B7509 /* SMSConfirmationViewController.swift in Sources */,
 				1BE793232A07927400A9F42A /* NetworkManager.swift in Sources */,
 				1BE793492A0964B000A9F42A /* HomeViewController.swift in Sources */,
 				1B983BCA2A0AA91F00C3D9E8 /* Address.swift in Sources */,
@@ -406,6 +421,7 @@
 				1BE7931A2A07869900A9F42A /* Constants.swift in Sources */,
 				1B983BB62A09F28400C3D9E8 /* FlowController.swift in Sources */,
 				1BE7931D2A078A1200A9F42A /* UIColor.swift in Sources */,
+				1B1F00DF2A0DF902008B7509 /* UserSignUp.swift in Sources */,
 				1B983BD02A0BF94400C3D9E8 /* DropdownViewController.swift in Sources */,
 				1B983BC82A0AA12100C3D9E8 /* SignUpViewController.swift in Sources */,
 				1BE7931F2A078B8D00A9F42A /* UITextField.swift in Sources */,

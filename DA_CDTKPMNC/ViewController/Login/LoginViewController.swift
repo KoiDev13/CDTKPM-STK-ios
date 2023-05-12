@@ -211,6 +211,7 @@ class LoginViewController: UIViewController {
     
     @objc private func onClickToSignUpButton() {
         let vc = SignUpViewController()
+        vc.delegate = self
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -220,6 +221,14 @@ class LoginViewController: UIViewController {
 
 }
 
+
+extension LoginViewController: SignUpViewControllerDelegate {
+    func didSignUpSuccessfully() {
+        delegate?.didLoginSuccessfully()
+    }
+    
+    
+}
 final class PrimaryButton: UIButton {
     
     let cornerRadius: CGFloat = 12
