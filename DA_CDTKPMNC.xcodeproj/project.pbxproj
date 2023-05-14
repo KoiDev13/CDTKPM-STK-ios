@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		1B1F00DD2A0D6016008B7509 /* SMSConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1F00DC2A0D6016008B7509 /* SMSConfirmationViewController.swift */; };
 		1B1F00DF2A0DF902008B7509 /* UserSignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1F00DE2A0DF902008B7509 /* UserSignUp.swift */; };
+		1B1F00E12A112FDE008B7509 /* NetworkInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1F00E02A112FDE008B7509 /* NetworkInterceptor.swift */; };
+		1B1F00E32A1141AD008B7509 /* DiceeGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1F00E22A1141AD008B7509 /* DiceeGameViewController.swift */; };
 		1B983BB62A09F28400C3D9E8 /* FlowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B983BB52A09F28400C3D9E8 /* FlowController.swift */; };
 		1B983BC02A0A492A00C3D9E8 /* BaseTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B983BBF2A0A492900C3D9E8 /* BaseTabbarController.swift */; };
 		1B983BC32A0A49E400C3D9E8 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B983BC22A0A49E400C3D9E8 /* ProfileViewController.swift */; };
@@ -40,6 +42,8 @@
 /* Begin PBXFileReference section */
 		1B1F00DC2A0D6016008B7509 /* SMSConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSConfirmationViewController.swift; sourceTree = "<group>"; };
 		1B1F00DE2A0DF902008B7509 /* UserSignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSignUp.swift; sourceTree = "<group>"; };
+		1B1F00E02A112FDE008B7509 /* NetworkInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkInterceptor.swift; sourceTree = "<group>"; };
+		1B1F00E22A1141AD008B7509 /* DiceeGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiceeGameViewController.swift; sourceTree = "<group>"; };
 		1B983BB52A09F28400C3D9E8 /* FlowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowController.swift; sourceTree = "<group>"; };
 		1B983BBF2A0A492900C3D9E8 /* BaseTabbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabbarController.swift; sourceTree = "<group>"; };
 		1B983BC22A0A49E400C3D9E8 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -194,6 +198,7 @@
 			children = (
 				1BE793222A07927400A9F42A /* NetworkManager.swift */,
 				1BE793242A07994500A9F42A /* APIClient.swift */,
+				1B1F00E02A112FDE008B7509 /* NetworkInterceptor.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -277,6 +282,7 @@
 			isa = PBXGroup;
 			children = (
 				1BE793482A0964B000A9F42A /* HomeViewController.swift */,
+				1B1F00E22A1141AD008B7509 /* DiceeGameViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -406,6 +412,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1BE793162A07853100A9F42A /* LoginViewController.swift in Sources */,
+				1B1F00E32A1141AD008B7509 /* DiceeGameViewController.swift in Sources */,
 				1BE793022A07850200A9F42A /* AppDelegate.swift in Sources */,
 				1BE793182A07862C00A9F42A /* BaseViewController.swift in Sources */,
 				1BE793252A07994500A9F42A /* APIClient.swift in Sources */,
@@ -413,6 +420,7 @@
 				1BE793232A07927400A9F42A /* NetworkManager.swift in Sources */,
 				1BE793492A0964B000A9F42A /* HomeViewController.swift in Sources */,
 				1B983BCA2A0AA91F00C3D9E8 /* Address.swift in Sources */,
+				1B1F00E12A112FDE008B7509 /* NetworkInterceptor.swift in Sources */,
 				1B983BC32A0A49E400C3D9E8 /* ProfileViewController.swift in Sources */,
 				1BE7933F2A09605A00A9F42A /* CustomError.swift in Sources */,
 				1BE7932B2A079CE900A9F42A /* LoginRepositoryProtocol.swift in Sources */,

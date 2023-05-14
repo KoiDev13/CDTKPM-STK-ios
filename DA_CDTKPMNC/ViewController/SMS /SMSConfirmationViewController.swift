@@ -27,7 +27,7 @@ class SMSConfirmationViewController: UIViewController {
         button.addTarget(self,
                          action: #selector(onClickToResendCodeButton),
                          for: .touchUpInside)
-        button.configure("Re-send code (59s)",
+        button.configure("Verify",
                          backgroundColor: UIColor.App.primaryDarkBlueButton,
                          font: UIFont.systemFont(ofSize: 12))
         return button
@@ -58,8 +58,8 @@ class SMSConfirmationViewController: UIViewController {
     }
     
     @objc func onClickToResendCodeButton() {
-        debugPrint(verifyCodeView.getOTPString())
-        delegate?.didLoginSuccessfully()
+        
+        debugPrint("userId: \(userId)")
         
         NetworkManager.shared.verifyOTP(userId: userId, otp: Int(verifyCodeView.getOTPString())!) { result in
             switch result {

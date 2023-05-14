@@ -55,7 +55,7 @@ extension APITarget: TargetType {
         case .signup:
             return "EndUser/Register"
             
-        case .verifyOTP(let userId):
+        case .verifyOTP(let userId, _):
             return "EndUser/VerifyRegister/\(userId)"
         }
     }
@@ -76,7 +76,7 @@ extension APITarget: TargetType {
     
     var task: Moya.Task {
         switch self {
-        case .login, .signup:
+        case .login, .signup, .verifyOTP:
             return .requestParameters(
                 parameters: parameters,
                 encoding: JSONEncoding.default
