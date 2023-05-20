@@ -9,6 +9,7 @@ target 'DA_CDTKPMNC' do
  pod 'Moya', '~> 15.0'
  pod 'BonMot'
  pod 'SwiftyUserDefaults'
+ pod 'iOSLuckyWheel'
   # Pods for DA_CDTKPMNC
 
 end

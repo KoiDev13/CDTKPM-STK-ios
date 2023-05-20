@@ -62,7 +62,8 @@ protocol LoginRepositoryProtocol {
     func getListWard(id: String,
                      completionHandler: @escaping (WardHandler) -> Void)
     
-    func signup(_ user: SignUpModel, completionHandler: @escaping (Result<UserSignUp, Error>) -> Void)
+    func signup(_ user: SignUpModel,
+                completionHandler: @escaping (AuthHandler) -> Void)
     
     func verifyOTP(userId: String,
                otp: Int,

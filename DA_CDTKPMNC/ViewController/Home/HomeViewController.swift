@@ -32,7 +32,9 @@ class HomeViewController: UIViewController {
         view.addSubview(tableView)
         
         tableView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.left.right.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
     }
     
@@ -40,8 +42,15 @@ class HomeViewController: UIViewController {
 
 extension HomeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = DiceeGameViewController()
-        navigationController?.pushViewController(vc, animated: true)
+        
+        switch indexPath.row {
+        case 0:
+            let vc = DiceeGameViewController()
+            navigationController?.pushViewController(vc, animated: true)
+        default:
+            let vc = LuckyWheelViewController()
+            navigationController?.pushViewController(vc, animated: true)
+        }
     }
 }
 

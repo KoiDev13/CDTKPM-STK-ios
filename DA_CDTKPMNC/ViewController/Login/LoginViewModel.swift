@@ -20,7 +20,7 @@ class LoginViewModel {
             case .success(let user):
                 
                 LocalStorageManager.shared.saveUser(user.data)
-                LocalStorageManager.shared.updateCredential(user.data.accountToken?.accessToken ?? "")
+                LocalStorageManager.shared.updateCredential(user.data?.token?.accessToken ?? "")
                 
                 completionHandler(.success(user))
                 

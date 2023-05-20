@@ -380,7 +380,7 @@ class SignUpViewController: UIViewController {
                 debugPrint(user)
                 let vc = SMSConfirmationViewController()
                 vc.delegate = self
-                vc.userId = user.data?.userAccount?.id ?? ""
+                vc.userId = user.data?.account?.id ?? ""
                 self.navigationController?.pushViewController(vc, animated: true)
             case .failure(let error):
                 debugPrint(error.localizedDescription)

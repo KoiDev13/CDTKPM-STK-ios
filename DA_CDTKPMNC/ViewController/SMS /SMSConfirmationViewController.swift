@@ -66,7 +66,7 @@ class SMSConfirmationViewController: UIViewController {
                 
             case .success(let user):
                 LocalStorageManager.shared.saveUser(user.data)
-                LocalStorageManager.shared.updateCredential(user.data.accountToken?.accessToken ?? "")
+                LocalStorageManager.shared.updateCredential(user.data?.token?.accessToken ?? "")
                 
                 self.delegate?.didLoginSuccessfully()
             case .failure(let error):
