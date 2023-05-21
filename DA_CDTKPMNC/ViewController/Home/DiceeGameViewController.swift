@@ -9,18 +9,31 @@ import UIKit
 
 class DiceeGameViewController: UIViewController {
     
-    let diceArray = [UIImage(named: "DiceOne"), UIImage(named: "DiceTwo"), UIImage(named: "DiceThree"), UIImage(named: "DiceFour"), UIImage(named: "DiceFive"), UIImage(named: "DiceSix")]
+    let diceArray = [
+        UIImage(named: "DiceOne"),
+        UIImage(named: "DiceTwo"),
+        UIImage(named: "DiceThree"),
+        UIImage(named: "DiceFour"),
+        UIImage(named: "DiceFive"),
+        UIImage(named: "DiceSix")
+    ]
     
     private lazy var buttonTai: UIButton = {
-        let button = UIButton(type: .system)
+        let button = UIButton(type: .custom)
         button.setTitle("Tài", for: .normal)
         button.addTarget(self, action: #selector(buttonTaiTapped), for: .touchUpInside)
+        button.setTitleColor(.systemPink, for: .normal)
+        button.backgroundColor = .white
+        button.layer.cornerRadius = 8
         return button
     }()
     
     private lazy var buttonXiu: UIButton = {
-        let button = UIButton(type: .system)
+        let button = UIButton(type: .custom)
         button.setTitle("Xỉu", for: .normal)
+        button.setTitleColor(.systemPink, for: .normal)
+        button.backgroundColor = .white
+        button.layer.cornerRadius = 8
         button.addTarget(self, action: #selector(buttonXiuTapped), for: .touchUpInside)
         return button
     }()
@@ -34,19 +47,22 @@ class DiceeGameViewController: UIViewController {
     
     private lazy var product1ImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .lightGray
+        imageView.clipsToBounds = true
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
     private lazy var product2ImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .lightGray
+        imageView.clipsToBounds = true
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
     private lazy var product3ImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .lightGray
+        imageView.clipsToBounds = true
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
@@ -61,11 +77,11 @@ class DiceeGameViewController: UIViewController {
     
     private lazy var signupButton: SecondaryButton = {
         let button = SecondaryButton()
-        button.configure("Roll",
-                         backgroundColor: .clear,
+        button.configure("Lắc",
+                         backgroundColor: .systemPink,
                          font: UIFont.systemFont(ofSize: 16),
-                         borderColor: UIColor.App.secondaryOnDarkBlue,
-                         titleColor: UIColor.App.primaryOnDarkBlue)
+                         borderColor: .clear,
+                         titleColor: .white)
         button.addTarget(self,
                          action: #selector(onClickToLoginButton),
                          for: .touchUpInside)
@@ -87,7 +103,7 @@ class DiceeGameViewController: UIViewController {
         
         stackView.snp.makeConstraints { make in
             make.left.right.equalToSuperview().inset(10)
-            make.height.equalTo(60)
+            make.height.equalTo(80)
             make.centerY.equalToSuperview()
         }
         
@@ -127,18 +143,22 @@ class DiceeGameViewController: UIViewController {
     
     @objc func buttonTaiTapped() {
         // Đặt màu nền của nút "Tài" khi được chọn
-        buttonTai.backgroundColor = UIColor.green
+        buttonTai.backgroundColor = UIColor.systemPink
+        buttonTai.setTitleColor(.white, for: .normal)
         
         // Đặt màu nền mặc định cho nút "Xỉu"
-        buttonXiu.backgroundColor = UIColor.clear
+        buttonXiu.backgroundColor = UIColor.white
+        buttonXiu.setTitleColor(.systemPink, for: .normal)
     }
     
     @objc func buttonXiuTapped() {
         // Đặt màu nền của nút "Xỉu" khi được chọn
-        buttonXiu.backgroundColor = UIColor.green
+        buttonXiu.backgroundColor = UIColor.systemPink
+        buttonXiu.setTitleColor(.white, for: .normal)
         
         // Đặt màu nền mặc định cho nút "Tài"
-        buttonTai.backgroundColor = UIColor.clear
+        buttonTai.backgroundColor = UIColor.white
+        buttonTai.setTitleColor(.systemPink, for: .normal)
     }
     
     @objc private func onClickToLoginButton() {
