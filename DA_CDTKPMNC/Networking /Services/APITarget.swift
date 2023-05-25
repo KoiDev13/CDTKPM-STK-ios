@@ -27,6 +27,10 @@ enum APITarget {
     case signup(_ user: SignUpModel)
     
     case verifyOTP(_ userId: String, otp: Int)
+    
+    case getListAllStore
+    
+    case canJoinPlayGame(_ campaignID: String)
 }
 
 extension APITarget: TargetType {
@@ -57,6 +61,12 @@ extension APITarget: TargetType {
             
         case .verifyOTP(let userId, _):
             return "EndUser/VerifyRegister/\(userId)"
+            
+        case .getListAllStore:
+            return "EndUser/Store/All"
+            
+        case .canJoinPlayGame(let campaignID):
+            return "Campaign/CanJoin/\(campaignID)"
         }
     }
     
@@ -92,11 +102,6 @@ extension APITarget: TargetType {
     var headers: [String : String]? {
         var headers : [String: String] = [:]
         switch self {
-//        case .fetchListLoyaltyBrands,:
-//            if let token = LocalStorageManager.shared.fetchCredential() {
-//                headers["Authorization"] = "Bearer \(token)"
-//            }
-//            return headers
         default:
             headers["Content-Type"] = "application/json"
             return headers

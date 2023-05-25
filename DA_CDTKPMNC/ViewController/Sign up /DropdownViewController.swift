@@ -31,16 +31,7 @@ class DropdownViewController: UIViewController {
         super.viewDidLoad()
        
         
-        switch dropdownType {
-        case .gender:
-            break
-        case .provines:
-            getListProvines()
-        case .districts:
-            getListDistricts()
-        case .wards:
-            getListWard()
-        }
+        
         
         view.addSubview(tableView)
         
@@ -52,6 +43,20 @@ class DropdownViewController: UIViewController {
         tableView.register(CellClass.self, forCellReuseIdentifier: "Cell")
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        switch dropdownType {
+        case .gender:
+            break
+        case .provines:
+            getListProvines()
+        case .districts:
+            getListDistricts()
+        case .wards:
+            getListWard()
+        }
+    }
+    
     private func getListProvines() {
         NetworkManager.shared.getListProvines { result in
             switch result {

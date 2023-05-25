@@ -13,9 +13,20 @@ final class NetworkManager: APIClientProtocol {
     static let shared = NetworkManager()
 
     typealias TargetType = APITarget
+    
+    private lazy var networkInterceptor: NetworkInterceptor = {
+        let networkInterceptor = NetworkInterceptor()
+        return networkInterceptor
+    }()
+
+    private lazy var session: Session = {
+        let sesstion = Session(interceptor: networkInterceptor)
+        return sesstion
+    }()
 
     var provider: MoyaProvider<TargetType> {
         MoyaProvider(
+            session: session,
             plugins: [
                 NetworkLoggerPlugin.init(
                     configuration: .init(
@@ -26,6 +37,8 @@ final class NetworkManager: APIClientProtocol {
             ]
         )
     }
+    
+    private init() {}
 
     func request<T: Decodable>(
         target: TargetType,
@@ -94,4 +107,18 @@ extension NetworkManager: LoginRepositoryProtocol {
     func verifyOTP(userId: String, otp: Int, completionHandler: @escaping (AuthHandler) -> Void) {
         request(target: .verifyOTP(userId, otp: otp), completion: completionHandler)
     }
+}
+
+extension NetworkManager: StoreRepositoryProtocol {
+    
+    func canJoinPlayGame(campaignID: String,
+                         completionHandler: @escaping (GameHandler) -> Void) {
+        request(target: .canJoinPlayGame(campaignID), completion: completionHandler)
+    }
+    
+    func getAllStore(completionHandler: @escaping (StoreHandler) -> Void) {
+        request(target: .getListAllStore, completion: completionHandler)
+    }
+    
+    
 }

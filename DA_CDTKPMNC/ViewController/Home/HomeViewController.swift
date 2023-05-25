@@ -9,6 +9,18 @@ import UIKit
 
 class HomeViewController: UIViewController {
 
+    let viewModel: HomeViewModel
+    
+    init(viewModel: HomeViewModel = .init()) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.delegate = self
@@ -28,6 +40,13 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setupUI()
+        
+        getAllStore()
+        
+    }
+    
+    private func setupUI() {
         view.backgroundColor = .white
         view.addSubview(tableView)
         
@@ -38,115 +57,73 @@ class HomeViewController: UIViewController {
         }
     }
     
+    private func getAllStore() {
+        
+        viewModel.getAllStore { [weak self] result in
+        
+            guard let self = self else {
+                return
+            }
+            
+            switch result {
+                
+            case .success(_):
+                self.tableView.reloadData()
+                
+            case .failure(let error):
+                debugPrint(error.localizedDescription)
+            }
+        }
+    }
+    
 }
 
 extension HomeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        switch indexPath.row {
-        case 0:
-            let vc = DiceeGameViewController()
-            navigationController?.pushViewController(vc, animated: true)
-        default:
-            let vc = LuckyWheelViewController()
-            navigationController?.pushViewController(vc, animated: true)
-        }
+        let vc = StoreDetailViewController(
+            viewModel: .init(
+                store: viewModel.itemAtIndex(
+                    indexPath.row
+                )
+            )
+        )
+        
+        navigationController?.pushViewController(vc, animated: true)
+        
+//        switch indexPath.row {
+//        case 0:
+//            let vc = DiceeGameViewController()
+//            navigationController?.pushViewController(vc, animated: true)
+//        default:
+//            let vc = LuckyWheelViewController()
+//            navigationController?.pushViewController(vc, animated: true)
+//        }
     }
 }
 
 extension HomeViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return viewModel.numberOfItem()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: ServiceTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+        cell.setupViewModel(viewModel.itemAtIndex(indexPath.row))
         return cell
     }
     
     
 }
 
-class ServiceTableViewCell: UITableViewCell, ReusableView {
-    
-    private lazy var containerView: UIView = {
-        let view = UIView()
-        view.layer.cornerRadius = 12
-        return view
-    }()
-    
-    private lazy var productImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.backgroundColor = .lightGray
-        return imageView
-    }()
-    
-    private lazy var titleLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 0
-        label.textColor = .black
-        label.text = "Nâng cơ Hifu Linear 6D"
-        return label
-    }()
-    
-    private lazy var contentLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 4
-        label.textColor = UIColor(hex: "#797979")
-        label.text = "Horem ipsum dolor sit amet, consectetur adipiscing elit"
-        return label
-    }()
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.selectionStyle = .none
-        setupView()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func setupView() {
-        contentView.addSubview(containerView)
-        containerView.addSubview(productImageView)
-        containerView.addSubview(titleLabel)
-        containerView.addSubview(contentLabel)
-        
-        
-        containerView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(12)
-            make.left.right.equalToSuperview().inset(12)
-            make.bottom.equalToSuperview()
-        }
-        
-        productImageView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.left.equalToSuperview()
-            make.size.equalTo(80)
-            make.bottom.equalToSuperview()
-        }
-        
-        titleLabel.snp.makeConstraints { make in
-            make.left.equalTo(productImageView.snp.right).offset(12)
-            make.top.equalToSuperview().offset(4)
-        }
-        
-        contentLabel.snp.makeConstraints { make in
-            make.left.equalTo(titleLabel.snp.left)
-            make.top.equalTo(titleLabel.snp.bottom)
-            make.right.equalToSuperview()
-        }
-        
-    }
-}
 
-protocol ReusableView: class {
+
+protocol ReusableView: AnyObject {
     static var defaultReuseIdentifier: String { get }
 }
 
-protocol NibLoadableView: class {
+protocol NibLoadableView: AnyObject {
     static var nibName: String { get }
 }
 

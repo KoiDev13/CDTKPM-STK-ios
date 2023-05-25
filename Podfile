@@ -10,6 +10,7 @@ target 'DA_CDTKPMNC' do
  pod 'BonMot'
  pod 'SwiftyUserDefaults'
  pod 'iOSLuckyWheel'
+ pod 'Kingfisher', '~> 7.0'
   # Pods for DA_CDTKPMNC
 
 end

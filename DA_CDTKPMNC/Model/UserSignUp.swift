@@ -23,3 +23,23 @@
 //    let id, userName, name, gender: String?
 //}
 
+struct PlayGameResponse: Codable {
+    let success: Bool?
+    let message: String?
+    let data: PlayGame?
+
+    enum CodingKeys: String, CodingKey {
+        case success
+        case message
+        case data
+    }
+}
+
+// MARK: - DataClass
+struct PlayGame: Codable {
+    let canJoin: Bool?
+
+    enum CodingKeys: String, CodingKey {
+        case canJoin
+    }
+}

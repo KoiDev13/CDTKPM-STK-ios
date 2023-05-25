@@ -9,15 +9,18 @@ import Foundation
 import Alamofire
 
 class NetworkInterceptor: RequestInterceptor {
-    private let token: String
-    
-    init(token: String) {
-        self.token = token
-    }
     
     func adapt(_ urlRequest: URLRequest, for session: Session, completion: @escaping (Result<URLRequest, Error>) -> Void) {
+        
         var adaptedRequest = urlRequest
+    
+        guard let token = LocalStorageManager.shared.fetchCredential() else {
+            completion(.success(adaptedRequest))
+            return
+        }
+        
         adaptedRequest.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        
         completion(.success(adaptedRequest))
     }
     
