@@ -33,6 +33,8 @@ enum APITarget {
     case canJoinPlayGame(_ campaignID: String)
     
     case refreshToken(_ refreshToken: String)
+    
+    case getProductItem(_ storeID: String)
 }
 
 extension APITarget: TargetType {
@@ -72,6 +74,9 @@ extension APITarget: TargetType {
             
         case .refreshToken:
             return "EndUser/RefreshToken"
+            
+        case .getProductItem(let storeID):
+            return "ProductItem/Available/\(storeID)"
         }
     }
     

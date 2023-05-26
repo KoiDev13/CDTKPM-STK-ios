@@ -118,3 +118,168 @@ class StoreDetailsHeaderTableViewCell: UITableViewCell, ReusableView {
         procedureImageView.kf.setImage(with: url)
     }
 }
+
+class ListDoctorTableViewCell: UITableViewCell, ReusableView {
+
+    var doctors: [ProductItem] = []
+    
+    private lazy var collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        layout.minimumLineSpacing = 10
+        layout.minimumInteritemSpacing = 10
+        
+        let with = (UIScreen.main.bounds.width - 30) / 2
+        layout.itemSize = CGSize(width: with, height: with * 1.25)
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.isScrollEnabled = false
+        collectionView.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 0, right: 10)
+        collectionView.register(HomeDoctorCollectionViewCell.self)
+        return collectionView
+    }()
+    
+    override func systemLayoutSizeFitting(_ targetSize: CGSize, withHorizontalFittingPriority horizontalFittingPriority: UILayoutPriority, verticalFittingPriority: UILayoutPriority) -> CGSize {
+            self.collectionView.layoutIfNeeded()
+            self.layoutIfNeeded()
+            let contentSize = self.collectionView.collectionViewLayout.collectionViewContentSize
+            return CGSize(width: contentSize.width, height: contentSize.height + 8)
+        }
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.selectionStyle = .none
+        
+        setupView()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupView() {
+        contentView.addSubview(collectionView)
+        collectionView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+    }
+    
+    func reloadData() {
+        collectionView.reloadData()
+    }
+    
+}
+
+extension ListDoctorTableViewCell: UICollectionViewDelegate {
+    
+}
+
+extension ListDoctorTableViewCell: UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return doctors.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell: HomeDoctorCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
+        cell.setupViewModel(doctors[indexPath.row])
+        return cell
+    }
+    
+    
+}
+
+
+class HomeDoctorCollectionViewCell: UICollectionViewCell, ReusableView {
+    
+    private var containerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        view.layer.cornerRadius = 12
+        return view
+    }()
+    
+    private lazy var doctorImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.backgroundColor = .clear
+        imageView.clipsToBounds = true
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+    
+    private lazy var namelabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .black
+        label.font = UIFont.systemFont(ofSize: 14)
+        return label
+    }()
+    
+    private lazy var descriptionlabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .lightGray
+        label.font = UIFont.systemFont(ofSize: 12)
+        return label
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        initView()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+    }
+    
+    override func prepareForReuse() {
+        doctorImageView.image = nil
+        namelabel.text = nil
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func initView() {
+        addSubview(containerView)
+        containerView.addSubview(doctorImageView)
+        containerView.addSubview(namelabel)
+        containerView.addSubview(descriptionlabel)
+        
+        containerView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        doctorImageView.snp.makeConstraints { make in
+            make.top.left.right.equalToSuperview()
+            make.height.equalTo(170)
+        }
+        
+        namelabel.snp.makeConstraints { make in
+            make.top.equalTo(doctorImageView.snp.bottom).offset(4)
+            make.left.right.equalToSuperview()
+        }
+        
+        descriptionlabel.snp.makeConstraints { make in
+            make.top.equalTo(namelabel.snp.bottom).offset(4)
+            make.left.right.equalToSuperview()
+        }
+    }
+    
+    func setupViewModel(_ product: ProductItem) {
+        
+        namelabel.text = product.name ?? ""
+        descriptionlabel.text = product.description ?? ""
+        
+        guard let urlString = product.imageURL,
+                let url = URL(string: "http://api.vovanthuong.online\(urlString)") else {
+            return
+        }
+        
+        doctorImageView.kf.setImage(with: url)
+    }
+}

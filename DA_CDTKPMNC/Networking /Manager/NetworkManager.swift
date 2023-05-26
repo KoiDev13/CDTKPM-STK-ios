@@ -115,6 +115,11 @@ extension NetworkManager: LoginRepositoryProtocol {
 
 extension NetworkManager: StoreRepositoryProtocol {
     
+    func getProductItem(storeID: String, completionHandler: @escaping (ProductItemHandler) -> Void) {
+        request(target: .getProductItem(storeID), completion: completionHandler)
+    }
+    
+    
     func canJoinPlayGame(campaignID: String,
                          completionHandler: @escaping (GameHandler) -> Void) {
         request(target: .canJoinPlayGame(campaignID), completion: completionHandler)

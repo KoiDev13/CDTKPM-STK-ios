@@ -17,6 +17,8 @@ class StoreDetailViewModel {
     
     var isCanJoinGame: Bool = false
     
+    var products: [ProductItem] = []
+    
     func canJoinPlayGame(campaignID: String, completionHandler: @escaping (Result<PlayGameResponse, Error>) -> Void) {
         
         NetworkManager.shared.canJoinPlayGame(campaignID: campaignID) { result in
@@ -26,6 +28,24 @@ class StoreDetailViewModel {
             case .success(let response):
             
                 self.isCanJoinGame = response.data?.canJoin ?? false
+                
+                completionHandler(.success(response))
+                
+            case .failure(let error):
+                completionHandler(.failure(error))
+            }
+        }
+    }
+    
+    func getProductItem(storeID: String, completionHandler: @escaping (Result<ProductResponse, Error>) -> Void) {
+        
+        NetworkManager.shared.getProductItem(storeID: storeID) { result in
+            
+            switch result {
+                
+            case .success(let response):
+            
+                self.products = response.data?.productItems ?? []
                 
                 completionHandler(.success(response))
                 

@@ -13,8 +13,13 @@ protocol StoreRepositoryProtocol {
     
     typealias GameHandler = Result<PlayGameResponse, Error>
     
+    typealias ProductItemHandler = Result<ProductResponse, Error>
+    
     func getAllStore(completionHandler: @escaping (StoreHandler) -> Void)
     
     func canJoinPlayGame(campaignID: String,
                          completionHandler: @escaping (GameHandler) -> Void)
+    
+    func getProductItem(storeID: String,
+                        completionHandler: @escaping (ProductItemHandler) -> Void)
 }

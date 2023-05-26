@@ -30,7 +30,7 @@ struct StoresReponse: Codable {
 
 // MARK: - Store
 struct Store: Codable {
-    let id: String?
+    let id: String
     let name: String?
     let description: String?
     let bannerURL: String?
@@ -133,5 +133,59 @@ struct RefreshToken: Codable {
     enum CodingKeys: String, CodingKey {
         case accessToken
         case refreshToken
+    }
+}
+
+
+struct ProductResponse: Codable {
+    let data: Product?
+
+    enum CodingKeys: String, CodingKey {
+        case data
+    }
+}
+
+// MARK: - DataClass
+struct Product: Codable {
+    let productItems: [ProductItem]?
+
+    enum CodingKeys: String, CodingKey {
+        case productItems
+    }
+}
+
+// MARK: - ProductItem
+struct ProductItem: Codable {
+    let productCategory: ProductCategory?
+    let id: String?
+    let name: String?
+    let description: String?
+    let storeID: String?
+    let productCategoryID: String?
+    let price: Int?
+    let imageURL: String?
+
+    enum CodingKeys: String, CodingKey {
+        case productCategory
+        case id
+        case name
+        case description
+        case storeID
+        case productCategoryID
+        case price
+        case imageURL = "imageUrl"
+    }
+}
+
+// MARK: - ProductCategory
+struct ProductCategory: Codable {
+    let id: String?
+    let name: String?
+    let description: String?
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case name
+        case description
     }
 }

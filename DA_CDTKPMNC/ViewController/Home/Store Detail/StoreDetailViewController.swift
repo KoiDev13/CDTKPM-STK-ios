@@ -32,6 +32,7 @@ class StoreDetailViewController: UIViewController {
         tableView.showsVerticalScrollIndicator = false
         tableView.showsHorizontalScrollIndicator = false
         tableView.register(StoreDetailsHeaderTableViewCell.self)
+        tableView.register(ListDoctorTableViewCell.self)
         return tableView
     }()
     
@@ -40,7 +41,14 @@ class StoreDetailViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         
-        canJoinPlayGame()
+        getProductItem()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+            self.canJoinPlayGame()
+        }
+        
+        
+        
 //        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
 //            let vc = PopUpViewController(typeGame: .gameLuckyWhell)
 //            self.add(vc)
@@ -111,6 +119,23 @@ class StoreDetailViewController: UIViewController {
         }
     }
 
+    private func getProductItem() {
+        
+        viewModel.getProductItem(storeID: viewModel.store.id) { [weak self] result in
+            
+            guard let self = self else {
+                return
+            }
+            
+            switch result {
+            case .success(_):
+                self.tableView.reloadSections([1], with: .none)
+                
+            case .failure(let error):
+                debugPrint(error.localizedDescription)
+            }
+        }
+    }
 }
 
 extension StoreDetailViewController: UITableViewDelegate {
@@ -125,7 +150,7 @@ extension StoreDetailViewController: UITableViewDataSource {
             return 1
        
         default:
-            return 0
+            return 1
         }
     }
     
@@ -143,7 +168,9 @@ extension StoreDetailViewController: UITableViewDataSource {
             return cell
        
         default:
-            return UITableViewCell()
+            let cell: ListDoctorTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+            cell.doctors = viewModel.products
+            return cell
         }
     }
     
