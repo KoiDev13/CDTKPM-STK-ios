@@ -74,6 +74,7 @@ struct Campaign: Codable {
 
 // MARK: - CampaignVoucherList
 struct CampaignVoucherList: Codable {
+    
     let id: String?
     let name: String?
     let description: String?
@@ -109,5 +110,28 @@ struct ExpiresOn: Codable {
         case dayOfWeek
         case dayOfYear
         case dayNumber
+    }
+}
+
+struct RefreshTokenResponse: Codable {
+    let success: Bool?
+    let message: String?
+    let data: RefreshToken?
+
+    enum CodingKeys: String, CodingKey {
+        case success
+        case message
+        case data
+    }
+}
+
+// MARK: - RefreshToken
+struct RefreshToken: Codable {
+    let accessToken: String?
+    let refreshToken: String?
+
+    enum CodingKeys: String, CodingKey {
+        case accessToken
+        case refreshToken
     }
 }

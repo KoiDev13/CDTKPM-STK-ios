@@ -31,17 +31,31 @@ class NetworkInterceptor: RequestInterceptor {
             return completion(.doNotRetryWithError(error))
         }
         
-        //            refreshToken { [weak self] result in
-        //                guard let self = self else { return }
-        //
-        //                switch result {
-        //                case .success(let token):
-        //                    self.storage.accessToken = token
-        //                    /// After updating the token we can safely retry the original request.
-        //                    completion(.retry)
-        //                case .failure(let error):
-        //                    completion(.doNotRetryWithError(error))
-        //                }
-        //            }
+        guard let refreshToken = LocalStorageManager.shared.fetchCurrentUser()?.token?.refreshToken else {
+            return
+        }
+        
+        NetworkManager.shared.refreshToken(refreshToken: refreshToken) { [weak self] result in
+            
+            guard let _ = self else {
+                return
+            }
+            
+            switch result {
+                
+            case .success(let response):
+                
+                debugPrint("Refresh token called successfully")
+                
+                LocalStorageManager.shared.updateCredential(response.data?.accessToken ?? "")
+                
+                LocalStorageManager.shared.updateRefreshToken(response.data?.refreshToken ?? "")
+                
+                completion(.retry)
+                
+            case .failure(let error):
+                completion(.doNotRetryWithError(error))
+            }
+        }
     }
 }

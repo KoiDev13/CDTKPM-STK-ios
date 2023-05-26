@@ -49,6 +49,7 @@ protocol LoginRepositoryProtocol {
     typealias ProvinesHandler = Result<AddressResponse, Error>
     typealias DistrictsHandler = Result<DistrictsResponse, Error>
     typealias WardHandler = Result<WardResponse, Error>
+    typealias RefreshTokenHandler = Result<RefreshTokenResponse, Error>
     
     func login(username: String,
                password: String,
@@ -68,4 +69,8 @@ protocol LoginRepositoryProtocol {
     func verifyOTP(userId: String,
                otp: Int,
                completionHandler: @escaping (AuthHandler) -> Void)
+    
+    func refreshToken(refreshToken: String,
+                      completionHandler: @escaping (RefreshTokenHandler) -> Void)
+    
 }

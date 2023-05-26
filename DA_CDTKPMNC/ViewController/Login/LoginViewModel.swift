@@ -21,6 +21,7 @@ class LoginViewModel {
                 
                 LocalStorageManager.shared.saveUser(user.data)
                 LocalStorageManager.shared.updateCredential(user.data?.token?.accessToken ?? "")
+                LocalStorageManager.shared.updateRefreshToken(user.data?.token?.refreshToken ?? "")
                 
                 completionHandler(.success(user))
                 

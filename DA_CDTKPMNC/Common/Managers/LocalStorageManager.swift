@@ -25,6 +25,14 @@ extension LocalStorageManager {
         Defaults[\.credential] =  credential
     }
     
+    func fetchRefreshToken() -> String? {
+        Defaults[\.refreshToken]
+    }
+    
+    func updateRefreshToken(_ credential: String) {
+        Defaults[\.refreshToken] =  credential
+    }
+    
     func fetchCurrentUser() -> UserProfile? {
         Defaults[\.currentUser]
     }
@@ -42,6 +50,7 @@ extension LocalStorageManager {
 
 private extension DefaultsKeys {
     var credential: DefaultsKey<String?> {.init("credential")}
+    var refreshToken: DefaultsKey<String?> {.init("refreshToken")}
     var currentUser: DefaultsKey<UserProfile?> {.init("currentUser")}
 }
 

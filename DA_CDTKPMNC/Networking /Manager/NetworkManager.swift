@@ -71,6 +71,10 @@ final class NetworkManager: APIClientProtocol {
 }
 
 extension NetworkManager: LoginRepositoryProtocol {
+    func refreshToken(refreshToken: String, completionHandler: @escaping (RefreshTokenHandler) -> Void) {
+        request(target: .refreshToken(refreshToken), completion: completionHandler)
+    }
+    
     func getListDistricts(id: String, completionHandler: @escaping (DistrictsHandler) -> Void) {
         request(target: .getListDistricts(id: id), completion: completionHandler)
     }

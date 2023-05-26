@@ -31,6 +31,8 @@ enum APITarget {
     case getListAllStore
     
     case canJoinPlayGame(_ campaignID: String)
+    
+    case refreshToken(_ refreshToken: String)
 }
 
 extension APITarget: TargetType {
@@ -67,6 +69,9 @@ extension APITarget: TargetType {
             
         case .canJoinPlayGame(let campaignID):
             return "Campaign/CanJoin/\(campaignID)"
+            
+        case .refreshToken:
+            return "EndUser/RefreshToken"
         }
     }
     
@@ -86,7 +91,7 @@ extension APITarget: TargetType {
     
     var task: Moya.Task {
         switch self {
-        case .login, .signup, .verifyOTP:
+        case .login, .signup, .verifyOTP, .refreshToken:
             return .requestParameters(
                 parameters: parameters,
                 encoding: JSONEncoding.default
@@ -133,6 +138,10 @@ extension APITarget: TargetType {
             
         case .verifyOTP(_, let otp):
             params["otpValue"] = otp
+            
+        case .refreshToken(let refreshToken):
+            params["token"] = refreshToken
+            
         default:
             return [:]
         }
