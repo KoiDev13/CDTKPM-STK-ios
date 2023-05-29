@@ -7,6 +7,7 @@
 
 import Foundation
 import Moya
+import Alamofire
 
 enum APITarget {
     case login(
@@ -35,6 +36,10 @@ enum APITarget {
     case refreshToken(_ refreshToken: String)
     
     case getProductItem(_ storeID: String)
+    
+    case getGameLuckyWheel(_ campaignID: String)
+    
+    case getGameOverUnder(_ userIsOver: Bool, campaignID: String)
 }
 
 extension APITarget: TargetType {
@@ -77,12 +82,18 @@ extension APITarget: TargetType {
             
         case .getProductItem(let storeID):
             return "ProductItem/Available/\(storeID)"
+            
+        case .getGameLuckyWheel(let campaignID):
+            return "Game/LuckyWheel/\(campaignID)"
+            
+        case .getGameOverUnder(let userIsUnder, let campaignID):
+            return "Game/OverUnder/\(userIsUnder)/\(campaignID)"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .login, .signup, .verifyOTP:
+        case .login, .signup, .verifyOTP, .refreshToken:
             return .post
             
         default:

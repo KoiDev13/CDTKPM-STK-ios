@@ -47,7 +47,7 @@ struct Store: Codable {
 
 // MARK: - Campaign
 struct Campaign: Codable {
-    let id: String?
+    let id: String
     let name: String?
     let description: String?
     let storeID: String?

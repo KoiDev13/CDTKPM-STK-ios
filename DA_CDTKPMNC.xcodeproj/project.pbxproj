@@ -20,6 +20,7 @@
 		1B5DE0C52A1E4B11005A0BE7 /* StoreDetailsHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B5DE0C42A1E4B11005A0BE7 /* StoreDetailsHeaderTableViewCell.swift */; };
 		1B5DE0C72A1E515D005A0BE7 /* StoreDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B5DE0C62A1E515D005A0BE7 /* StoreDetailViewModel.swift */; };
 		1B5DE0C92A1F0865005A0BE7 /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B5DE0C82A1F0865005A0BE7 /* PopUpViewController.swift */; };
+		1B5DE0CB2A208FFF005A0BE7 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B5DE0CA2A208FFF005A0BE7 /* Game.swift */; };
 		1B983BB62A09F28400C3D9E8 /* FlowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B983BB52A09F28400C3D9E8 /* FlowController.swift */; };
 		1B983BC02A0A492A00C3D9E8 /* BaseTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B983BBF2A0A492900C3D9E8 /* BaseTabbarController.swift */; };
 		1B983BC32A0A49E400C3D9E8 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B983BC22A0A49E400C3D9E8 /* ProfileViewController.swift */; };
@@ -62,6 +63,7 @@
 		1B5DE0C42A1E4B11005A0BE7 /* StoreDetailsHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailsHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		1B5DE0C62A1E515D005A0BE7 /* StoreDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailViewModel.swift; sourceTree = "<group>"; };
 		1B5DE0C82A1F0865005A0BE7 /* PopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpViewController.swift; sourceTree = "<group>"; };
+		1B5DE0CA2A208FFF005A0BE7 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		1B983BB52A09F28400C3D9E8 /* FlowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowController.swift; sourceTree = "<group>"; };
 		1B983BBF2A0A492900C3D9E8 /* BaseTabbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabbarController.swift; sourceTree = "<group>"; };
 		1B983BC22A0A49E400C3D9E8 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -272,6 +274,7 @@
 				1B983BC92A0AA91F00C3D9E8 /* Address.swift */,
 				1B1F00DE2A0DF902008B7509 /* UserSignUp.swift */,
 				1B5DE0B72A1D1655005A0BE7 /* Store.swift */,
+				1B5DE0CA2A208FFF005A0BE7 /* Game.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -481,6 +484,7 @@
 				1BE7932B2A079CE900A9F42A /* LoginRepositoryProtocol.swift in Sources */,
 				1BE793282A0799AE00A9F42A /* APITarget.swift in Sources */,
 				1BE793432A09628B00A9F42A /* LoginViewModel.swift in Sources */,
+				1B5DE0CB2A208FFF005A0BE7 /* Game.swift in Sources */,
 				1BE7931A2A07869900A9F42A /* Constants.swift in Sources */,
 				1B5DE0BF2A1D1FAD005A0BE7 /* ServiceTableViewCell.swift in Sources */,
 				1B983BB62A09F28400C3D9E8 /* FlowController.swift in Sources */,

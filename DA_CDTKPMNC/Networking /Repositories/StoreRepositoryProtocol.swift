@@ -22,4 +22,11 @@ protocol StoreRepositoryProtocol {
     
     func getProductItem(storeID: String,
                         completionHandler: @escaping (ProductItemHandler) -> Void)
+    
+    func getGameLuckyWheel(campaignID: String,
+                           completionHandler: @escaping (Result<GameLuckyWheelReponse, Error>) -> Void)
+    
+    func getGameOverUnder(userIsOver: Bool,
+                          campaignID: String,
+                          completionHandler: @escaping (Result<GameLuckyWheelReponse, Error>) -> Void)
 }

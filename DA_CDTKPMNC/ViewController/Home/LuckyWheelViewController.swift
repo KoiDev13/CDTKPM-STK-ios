@@ -13,6 +13,10 @@ class LuckyWheelViewController: UIViewController, LuckyWheelDataSource,LuckyWhee
     var wheel :LuckyWheel?
     var items = [WheelItem]()
     
+    var campaignID = ""
+    
+    var store: Store?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -24,21 +28,75 @@ class LuckyWheelViewController: UIViewController, LuckyWheelDataSource,LuckyWhee
         wheel?.infinteRotation = true
         
         view.addSubview(wheel!)
+        
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+            
+            self.fetchData()
+        }
+        
+//        wheel?.addTarget(self, action: #selector(wheelTapped), for: .touchUpInside)
+       
+    }
+    
+//    @objc func wheelTapped() {
+//        wheel.rota
+//    }
+    
+    private func fetchData() {
+        NetworkManager.shared.getGameLuckyWheel(campaignID: campaignID) { [weak self] result in
+            
+            guard let self = self else {
+                return
+            }
+            
+            self.wheel?.stop()
+            
+            switch result {
+                
+            case .success(let response):
+                
+                let isWinner = response.data?.isWinner ?? false
+                
+                if isWinner {
+                    self.showMessage(response.data?.voucher?.voucherName ?? "", title: "Thông báo") {
+                        self.navigationController?.popToRootViewController(animated: true)
+                    }
+                } else {
+                    self.showMessage("Chúc bạn may mắn lần sau", title: "Thông báo") {
+                        self.navigationController?.popToRootViewController(animated: true)
+                    }
+                }
+                
+            case .failure(let error):
+                self.showAlert(error.localizedDescription) {
+                    self.navigationController?.popViewController(animated: true)
+                }
+            }
+        }
     }
     
     func numberOfSections() -> Int {
-        return 8
+        return store?.campaign?.campaignVoucherList?.count ?? 0
+    }
+    
+    func randomColor() -> UIColor {
+        let red = CGFloat.random(in: 0...1)
+        let green = CGFloat.random(in: 0...1)
+        let blue = CGFloat.random(in: 0...1)
+        let alpha = CGFloat.random(in: 0.5...1) // Optional: You can adjust the alpha value range
+        
+        return UIColor(red: red, green: green, blue: blue, alpha: alpha)
     }
     
     func itemsForSections() -> [WheelItem] {
-        items.append(WheelItem(title: "1", titleColor: UIColor.white, itemColor: #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)))
-        items.append(WheelItem(title:  "2", titleColor: UIColor.white, itemColor: #colorLiteral(red: 0.9098039269, green: 0.4784313738, blue: 0.6431372762, alpha: 1)))
-        items.append(WheelItem(title:  "3", titleColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), itemColor: #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)))
-        items.append(WheelItem(title:  "4", titleColor: UIColor.white, itemColor: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)))
-        items.append(WheelItem(title: "5", titleColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), itemColor: #colorLiteral(red: 0.9607843161, green: 0.7058823705, blue: 0.200000003, alpha: 1)))
-        items.append(WheelItem(title:  "6", titleColor: UIColor.white, itemColor: #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)))
-        items.append(WheelItem(title:  "7", titleColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), itemColor: #colorLiteral(red: 0.1764705926, green: 0.01176470611, blue: 0.5607843399, alpha: 1)))
-        items.append(WheelItem(title:  "8", titleColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), itemColor: #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)))
+        
+        store?.campaign?.campaignVoucherList?.forEach {
+            
+            items.append(WheelItem(title: $0.name ?? "", titleColor: .white, itemColor: randomColor()))
+            
+        }
+        
         return items
     }
     
@@ -46,4 +104,23 @@ class LuckyWheelViewController: UIViewController, LuckyWheelDataSource,LuckyWhee
         print(newValue)
     }
 
+}
+
+extension UIViewController {
+
+    func showAlert(_ message: String, completionHandler: (() -> Void)? = nil) {
+        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        alert.addAction(.init(title: "OK", style: .cancel, handler: { _ in
+            completionHandler?()
+        }))
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func showMessage(_ message: String, title: String, completionHandler: (() -> Void)? = nil) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(.init(title: "OK", style: .cancel, handler: { _ in
+            completionHandler?()
+        }))
+        present(alert, animated: true, completion: nil)
+    }
 }

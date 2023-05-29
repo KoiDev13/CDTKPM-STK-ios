@@ -27,6 +27,8 @@ class PopUpViewController: UIViewController {
     
     var dismissActionHandler: (() -> Void)? = nil
     
+    var playGameActionHandler: (() -> Void)? = nil
+    
     private lazy var dismissButton: UIButton = {
         let button = UIButton(type: .custom)
         button.setTitle("Dismiss", for: .normal)
@@ -41,7 +43,7 @@ class PopUpViewController: UIViewController {
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .systemPink
         button.setTitle("Play", for: .normal)
-        button.addTarget(self, action: #selector(dismissButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(playGameButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -112,5 +114,7 @@ class PopUpViewController: UIViewController {
         dismissActionHandler?()
     }
     
-    
+    @objc private func playGameButtonTapped() {
+        playGameActionHandler?()
+    }
 }

@@ -43,10 +43,10 @@ class StoreDetailViewController: UIViewController {
         
         getProductItem()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-            self.canJoinPlayGame()
-        }
-        
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+//            self.canJoinPlayGame()
+//        }
+//        
         
         
 //        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
@@ -62,6 +62,8 @@ class StoreDetailViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
+        
+        canJoinPlayGame()
     }
     
     private func setupUI() {
@@ -97,18 +99,32 @@ class StoreDetailViewController: UIViewController {
                     let gameName = self.viewModel.store.campaign?.gameName ?? ""
                     
                     if gameName == "Tài Xỉu" {
-                        let vc = PopUpViewController(typeGame: .gameDicee)
-                        self.add(vc)
+                        let popup = PopUpViewController(typeGame: .gameDicee)
+                        self.add(popup)
                         
-                        vc.dismissActionHandler = {
-                            vc.remove()
+                        popup.playGameActionHandler = {
+                            let vc = DiceeGameViewController()
+                            vc.campaignID = self.viewModel.store.campaign?.id ?? ""
+                            self.navigationController?.pushViewController(vc, animated: true)
+                        }
+                        
+                        popup.dismissActionHandler = {
+                            popup.remove()
                         }
                     } else {
-                        let vc = PopUpViewController(typeGame: .gameLuckyWhell)
-                        self.add(vc)
+                        let popup = PopUpViewController(typeGame: .gameLuckyWhell)
+                        self.add(popup)
                         
-                        vc.dismissActionHandler = {
-                            vc.remove()
+                        popup.dismissActionHandler = {
+                            popup.remove()
+                        }
+                        
+                        popup.playGameActionHandler = {
+                            popup.remove()
+                            let vc = LuckyWheelViewController()
+                            vc.campaignID = self.viewModel.store.campaign?.id ?? ""
+                            vc.store = self.viewModel.store
+                            self.navigationController?.pushViewController(vc, animated: true)
                         }
                     }
                 }

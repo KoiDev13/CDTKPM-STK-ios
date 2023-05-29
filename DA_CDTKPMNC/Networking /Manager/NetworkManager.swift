@@ -11,7 +11,7 @@ import Moya
 final class NetworkManager: APIClientProtocol {
     
     static let shared = NetworkManager()
-
+    
     typealias TargetType = APITarget
     
     private lazy var networkInterceptor: NetworkInterceptor = {
@@ -37,9 +37,8 @@ final class NetworkManager: APIClientProtocol {
             ]
         )
     }
+        
     
-    private init() {}
-
     func request<T: Decodable>(
         target: TargetType,
         completion: @escaping (Result<T, Error>) -> ()
@@ -101,7 +100,7 @@ extension NetworkManager: LoginRepositoryProtocol {
     
     func signup(
         _ user: SignUpModel,
-                completionHandler: @escaping (AuthHandler) -> Void
+        completionHandler: @escaping (AuthHandler) -> Void
     ) {
         request(target: .signup(user),
                 completion: completionHandler
@@ -114,6 +113,14 @@ extension NetworkManager: LoginRepositoryProtocol {
 }
 
 extension NetworkManager: StoreRepositoryProtocol {
+    func getGameOverUnder(userIsOver: Bool, campaignID: String, completionHandler: @escaping (Result<GameLuckyWheelReponse, Error>) -> Void) {
+        request(target: .getGameOverUnder(userIsOver, campaignID: campaignID), completion: completionHandler)
+    }
+
+    func getGameLuckyWheel(campaignID: String, completionHandler: @escaping (Result<GameLuckyWheelReponse, Error>) -> Void) {
+        request(target: .getGameLuckyWheel(campaignID), completion: completionHandler)
+    }
+    
     
     func getProductItem(storeID: String, completionHandler: @escaping (ProductItemHandler) -> Void) {
         request(target: .getProductItem(storeID), completion: completionHandler)
@@ -128,6 +135,5 @@ extension NetworkManager: StoreRepositoryProtocol {
     func getAllStore(completionHandler: @escaping (StoreHandler) -> Void) {
         request(target: .getListAllStore, completion: completionHandler)
     }
-    
-    
 }
+
