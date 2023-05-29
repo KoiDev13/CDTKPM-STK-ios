@@ -184,50 +184,56 @@ class DiceeGameViewController: UIViewController {
                 return
             }
             
-            self.timer?.invalidate()
+//            self.timer?.invalidate()
             
             switch result {
                 
             case .success(let response):
                 
-                let isTai = response.data?.gameData?.gameIsOver ?? false
-                
-                if isTai {
-                    self.buttonTai.layer.borderWidth = 1
-                    self.buttonTai.layer.borderColor = UIColor.green.cgColor
-                } else {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                    self.timer?.invalidate()
+                    let isTai = response.data?.gameData?.gameIsOver ?? false
                     
-                    self.buttonXiu.layer.borderWidth = 1
-                    self.buttonXiu.layer.borderColor = UIColor.green.cgColor
-                }
-                
-            
-                self.product1ImageView.image = self.diceArray[(response.data?.gameData?.dices?.dice1 ?? 0) - 1]
-                self.product2ImageView.image = self.diceArray[(response.data?.gameData?.dices?.dice2 ?? 0) - 1]
-                self.product3ImageView.image = self.diceArray[(response.data?.gameData?.dices?.dice3 ?? 0) - 1]
-                
-                let isWin = response.data?.isWinner ?? false
-                
-                if isWin {
-                    
-                    
-                    
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                        self.showMessage(response.data?.voucher?.voucherName ?? "", title: "Thông báo") {
-                            self.navigationController?.popToRootViewController(animated: true)
-                        }
+                    if isTai {
+                        self.buttonTai.layer.borderWidth = 1
+                        self.buttonTai.layer.borderColor = UIColor.green.cgColor
+                    } else {
+                        
+                        self.buttonXiu.layer.borderWidth = 1
+                        self.buttonXiu.layer.borderColor = UIColor.green.cgColor
                     }
                     
-                } else {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                        self.showMessage("Chúc bạn may mắn lần sau", title: "Thông báo") {
-                            self.navigationController?.popToRootViewController(animated: true)
+                
+                    self.product1ImageView.image = self.diceArray[(response.data?.gameData?.dices?.dice1 ?? 0) - 1]
+                    self.product2ImageView.image = self.diceArray[(response.data?.gameData?.dices?.dice2 ?? 0) - 1]
+                    self.product3ImageView.image = self.diceArray[(response.data?.gameData?.dices?.dice3 ?? 0) - 1]
+                    
+                    let isWin = response.data?.isWinner ?? false
+                    
+                    if isWin {
+                        
+                        
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                            self.showMessage(response.data?.voucher?.voucherName ?? "", title: "Thông báo") {
+                                self.navigationController?.popToRootViewController(animated: true)
+                            }
                         }
-                    }
+                        
+                    } else {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                            self.showMessage("Chúc bạn may mắn lần sau", title: "Thông báo") {
+                                self.navigationController?.popToRootViewController(animated: true)
+                            }
+                        }
 
+                    }
                 }
+                
+                
                 
             case .failure(let error):
+                self.timer?.invalidate()
                 self.showAlert(error.localizedDescription)
             }
             

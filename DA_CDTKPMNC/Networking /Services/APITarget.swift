@@ -149,7 +149,7 @@ extension APITarget: TargetType {
             params["name"] = user.name
             params["gender"] = user.gender
             
-            params["birthDate"] = user.birthDate.toJson()
+            params["dateOfBirth"] = user.dateOfBirth.toJson()
             params["address"] = user.address.toJson()
             
         case .verifyOTP(_, let otp):

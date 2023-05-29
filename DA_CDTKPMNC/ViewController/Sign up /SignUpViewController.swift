@@ -369,7 +369,7 @@ class SignUpViewController: UIViewController {
                                password: password,
                                name: name,
                                gender: gender,
-                               birthDate: .init(year: selectedYears ?? 0,
+                               dateOfBirth: .init(year: selectedYears ?? 0,
                                                 month: selectedMounth ?? 0,
                                                 day: selectedDay ?? 0),
                                address: .init(wardID: wardID,

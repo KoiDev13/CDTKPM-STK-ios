@@ -11,7 +11,7 @@ struct SignUpModel: Codable {
     
     let userName, password, name: String
     let gender: Int
-    let birthDate: BirthDate
+    let dateOfBirth: BirthDate
     let address: Address
     
     struct Address: Codable {

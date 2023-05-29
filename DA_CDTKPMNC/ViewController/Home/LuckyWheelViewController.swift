@@ -77,7 +77,8 @@ class LuckyWheelViewController: UIViewController, LuckyWheelDataSource,LuckyWhee
     }
     
     func numberOfSections() -> Int {
-        return store?.campaign?.campaignVoucherList?.count ?? 0
+        let item = (store?.campaign?.campaignVoucherList?.count ?? 0) + 1
+        return item
     }
     
     func randomColor() -> UIColor {
@@ -96,6 +97,8 @@ class LuckyWheelViewController: UIViewController, LuckyWheelDataSource,LuckyWhee
             items.append(WheelItem(title: $0.name ?? "", titleColor: .white, itemColor: randomColor()))
             
         }
+            
+        items.append(WheelItem(title: "Mất lượt", titleColor: .white, itemColor: randomColor()))
         
         return items
     }
