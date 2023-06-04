@@ -37,6 +37,14 @@ final class BaseTabbarController: UITabBarController {
             selectedImage: UIImage(systemName: "house.fill")
         )
         let homeNavi = UINavigationController(rootViewController: homeVC)
+        
+        let listVoucher = ListVoucherViewController()
+        listVoucher.tabBarItem = TabBarItem(
+            title: "Voucher",
+            image: UIImage(systemName: "list.bullet.clipboard"),
+            selectedImage: UIImage(systemName: "list.clipboard.fill")
+        )
+        let listVoucherNavi = UINavigationController(rootViewController: listVoucher)
 
         let profileVC = ProfileViewController()
         profileVC.delegate = self
@@ -47,7 +55,7 @@ final class BaseTabbarController: UITabBarController {
         )
         let profileNavi = UINavigationController(rootViewController: profileVC)
 
-        return [homeNavi, profileNavi]
+        return [homeNavi, listVoucherNavi, profileNavi]
     }()
 
     override func viewDidLoad() {

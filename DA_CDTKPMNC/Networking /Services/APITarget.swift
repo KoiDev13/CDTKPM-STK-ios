@@ -40,6 +40,8 @@ enum APITarget {
     case getGameLuckyWheel(_ campaignID: String)
     
     case getGameOverUnder(_ userIsOver: Bool, campaignID: String)
+    
+    case getListVoucher
 }
 
 extension APITarget: TargetType {
@@ -88,6 +90,9 @@ extension APITarget: TargetType {
             
         case .getGameOverUnder(let userIsUnder, let campaignID):
             return "Game/OverUnder/\(userIsUnder)/\(campaignID)"
+            
+        case .getListVoucher:
+            return "Voucher/All"
         }
     }
     

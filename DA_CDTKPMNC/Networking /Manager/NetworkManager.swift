@@ -14,16 +14,18 @@ final class NetworkManager: APIClientProtocol {
     
     typealias TargetType = APITarget
     
-    private lazy var networkInterceptor: NetworkInterceptor = {
-        let networkInterceptor = NetworkInterceptor()
-        return networkInterceptor
-    }()
-
-    private lazy var session: Session = {
-        let sesstion = Session(interceptor: networkInterceptor)
-        return sesstion
-    }()
-
+    private let session: Session
+    
+    private var tokenInterceptor: TokenInterceptor?
+    
+    
+    init() {
+        let interceptor = TokenInterceptor()
+        tokenInterceptor = interceptor
+        session = Session(interceptor: interceptor)
+        
+    }
+    
     var provider: MoyaProvider<TargetType> {
         MoyaProvider(
             session: session,
@@ -37,7 +39,7 @@ final class NetworkManager: APIClientProtocol {
             ]
         )
     }
-        
+    
     
     func request<T: Decodable>(
         target: TargetType,
@@ -113,10 +115,14 @@ extension NetworkManager: LoginRepositoryProtocol {
 }
 
 extension NetworkManager: StoreRepositoryProtocol {
+    func getListVoucher(completionHandler: @escaping (Result<ListVoucherResponse, Error>) -> Void) {
+        request(target: .getListVoucher, completion: completionHandler)
+    }
+    
     func getGameOverUnder(userIsOver: Bool, campaignID: String, completionHandler: @escaping (Result<GameLuckyWheelReponse, Error>) -> Void) {
         request(target: .getGameOverUnder(userIsOver, campaignID: campaignID), completion: completionHandler)
     }
-
+    
     func getGameLuckyWheel(campaignID: String, completionHandler: @escaping (Result<GameLuckyWheelReponse, Error>) -> Void) {
         request(target: .getGameLuckyWheel(campaignID), completion: completionHandler)
     }

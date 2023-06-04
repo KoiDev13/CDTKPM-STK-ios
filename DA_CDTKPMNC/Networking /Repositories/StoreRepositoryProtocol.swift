@@ -29,4 +29,6 @@ protocol StoreRepositoryProtocol {
     func getGameOverUnder(userIsOver: Bool,
                           campaignID: String,
                           completionHandler: @escaping (Result<GameLuckyWheelReponse, Error>) -> Void)
+    
+    func getListVoucher(completionHandler: @escaping (Result<ListVoucherResponse, Error>) -> Void)
 }

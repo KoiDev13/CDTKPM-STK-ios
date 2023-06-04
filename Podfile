@@ -11,6 +11,7 @@ target 'DA_CDTKPMNC' do
  pod 'SwiftyUserDefaults'
  pod 'iOSLuckyWheel'
  pod 'Kingfisher', '~> 7.0'
+ pod 'JWTDecode', '~> 3.0'
   # Pods for DA_CDTKPMNC
 
 end

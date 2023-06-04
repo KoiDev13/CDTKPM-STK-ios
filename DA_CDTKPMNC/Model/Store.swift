@@ -189,3 +189,47 @@ struct ProductCategory: Codable {
         case description
     }
 }
+
+struct ListVoucherResponse: Codable {
+    let data: ListVoucher?
+
+    enum CodingKeys: String, CodingKey {
+        case data
+    }
+}
+
+// MARK: - DataClass
+struct ListVoucher: Codable {
+    let vouchers: [Voucher]?
+
+    enum CodingKeys: String, CodingKey {
+        case vouchers
+    }
+}
+
+// MARK: - Voucher
+//struct Voucher: Codable {
+//    let voucherCode: String?
+//    let voucherName: String?
+//    let description: String?
+//    let storeID: String?
+//    let storeName: String?
+//    let campaignID: String?
+//    let campaignName: String?
+//    let endUserID: String?
+//    let endUserName: String?
+//    let isUsed: Bool?
+//
+//    enum CodingKeys: String, CodingKey {
+//        case voucherCode
+//        case voucherName
+//        case description
+//        case storeID
+//        case storeName
+//        case campaignID
+//        case campaignName
+//        case endUserID
+//        case endUserName
+//        case isUsed
+//    }
+//}

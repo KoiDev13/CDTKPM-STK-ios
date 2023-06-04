@@ -6,15 +6,9 @@
 //
 
 import Foundation
-import Moya
+import Alamofire
 
-class NetworkInterceptor: RequestInterceptor {
-    
-//    private let logger: NetworkLoggerPlugin
-//    
-//    init(logger: NetworkLoggerPlugin) {
-//        self.logger = logger
-//    }
+class TokenInterceptor: RequestInterceptor {
     
     func adapt(_ urlRequest: URLRequest, for session: Session, completion: @escaping (Result<URLRequest, Error>) -> Void) {
         
@@ -30,110 +24,115 @@ class NetworkInterceptor: RequestInterceptor {
         completion(.success(adaptedRequest))
     }
     
-//    func intercept(_ request: URLRequest, endpoint: Endpoint, completion: @escaping (Result<URLRequest, Error>) -> Void) {
-//        let originalRequest = request
-//        
-//        // Thực hiện yêu cầu gốc
-//        let task = URLSession.shared.dataTask(with: originalRequest) { [weak self] (data, response, error) in
-//            if let httpResponse = response as? HTTPURLResponse {
-//                let statusCode = httpResponse.statusCode
-//                
-//                if statusCode == 401 {
-//                    // Gọi hàm refresh token và thực hiện yêu cầu lại
-//                    self?.refreshToken { [weak self] result in
-//                        switch result {
-//                        case .success(let newToken):
-//                            var updatedRequest = originalRequest
-//                            // Cập nhật header yêu cầu với token mới
-//                            updatedRequest.setValue(newToken, forHTTPHeaderField: "Authorization")
-//                            
-//                            // Gọi lại yêu cầu với token mới
-//                            completion(.success(updatedRequest))
-//                        case .failure(let error):
-//                            completion(.failure(error))
-//                        }
-//                    }
-//                } else {
-//                    // Xử lý logic khi yêu cầu thành công và không phải là 401
-//                    completion(.success(originalRequest))
-//                }
-//            } else {
-//                // Xử lý logic khi không nhận được phản hồi HTTP
-//                completion(.failure(CustomError.somethingWentWrong))
-//            }
-//        }
-//        
-//        task.resume()
-//    }
+    func retry(_ request: Request, for session: Session, dueTo error: Error, completion: @escaping (RetryResult) -> Void) {
+        guard let response = request.task?.response as? HTTPURLResponse, response.statusCode == 401 else {
+            // Không phải lỗi 401 Unauthorized, không cần refresh token
+            completion(.doNotRetry)
+            return
+        }
+        
+        guard let refreshToken = LocalStorageManager.shared.fetchRefreshToken() else {
+            print("Refresh token is missing.")
+            completion(.doNotRetry)
+            return
+        }
+        
+        NetworkManager.shared.refreshToken(refreshToken: refreshToken) { result in
+            
+            switch result {
+            case .success(let response):
+                
+                guard let accessToken = response.data?.accessToken,
+                      let refreshToken = response.data?.refreshToken else {
+                    completion(.doNotRetry)
+                    return
+                }
+                
+                LocalStorageManager.shared.updateCredential(accessToken)
+                
+                LocalStorageManager.shared.updateRefreshToken(refreshToken)
+                
+                completion(.retry)
+                
+            case .failure:
+                completion(.doNotRetry)
+            }
+        }
+    }
+}
 
-//    func refreshToken(completion: @escaping (Result<String, Error>) -> Void) {
-//        // Thực hiện logic để refresh token
-//        // Sau khi refresh token thành công, gọi completion với token mới
-//        guard let refreshToken = LocalStorageManager.shared.fetchCurrentUser()?.token?.refreshToken else {
-//            completion(.failure(CustomError.somethingWentWrong))
-//            return
-//        }
-//
-//        NetworkManager.shared.refreshToken(refreshToken: refreshToken) { result in
-//
-//
-//
-//            switch result {
-//
-//            case .success(let response):
-//
-//                guard let accessToken = response.data?.accessToken, let refreshToken = response.data?.refreshToken else {
-//                    completion(.failure(CustomError.somethingWentWrong))
-//                    return
-//                }
-//
-//
-//
-//                debugPrint("Refresh token called successfully")
-//
-//                LocalStorageManager.shared.updateCredential(accessToken)
-//
-//                LocalStorageManager.shared.updateRefreshToken(response.data?.refreshToken ?? "")
-//
-//                completion(.success(accessToken))
-//
-//            case .failure(let error):
-//                completion(.failure(error))
-//            }
-//    }
-
+class TokenManager {
     
-//    func retry(_ request: Request, for session: Session, dueTo error: Error, completion: @escaping (RetryResult) -> Void) {
-//
-//        if let response = request.response, response.statusCode == 401 {
-//
-//            guard let refreshToken = LocalStorageManager.shared.fetchCurrentUser()?.token?.refreshToken else {
-//                completion(.doNotRetry)
-//                return
-//            }
-//
-//            NetworkManager.shared.refreshToken(refreshToken: refreshToken) { result in
-//
-//
-//
-//                switch result {
-//
-//                case .success(let response):
-//
-//                    debugPrint("Refresh token called successfully")
-//
-//                    LocalStorageManager.shared.updateCredential(response.data?.accessToken ?? "")
-//
-//                    LocalStorageManager.shared.updateRefreshToken(response.data?.refreshToken ?? "")
-//
-//                    completion(.retry)
-//
-//                case .failure(let error):
-//                    completion(.doNotRetryWithError(error))
-//                }
-//            }
-//        } else {
-//            completion(.doNotRetry)
-//        }
-//    }
+    //    private var accessToken: String?
+    //
+    //    private var refreshToken: String?
+    //
+    //    func setTokens(accessToken: String?, refreshToken: String?) {
+    //        self.accessToken = accessToken
+    //        self.refreshToken = refreshToken
+    //    }
+    
+    //
+    //    func performAPIRequest() {
+    //        if isAccessTokenValid() {
+    //            print("Performing API request with access token:", accessToken!)
+    //        } else {
+    //            refreshAccessToken()
+    //        }
+    //    }
+    //
+    //    private func isAccessTokenValid() -> Bool {
+    //
+    //        guard let accessToken = accessToken,
+    //              let jwt = try? decodeJWT(accessToken),
+    //              let expirationDate = jwt.expirationDate else {
+    //            return false
+    //        }
+    //
+    //        let currentDate = Date()
+    //        return currentDate < expirationDate
+    //    }
+    
+    func refreshAccessToken(completion: @escaping (Result<String, Error>) -> Void) {
+        guard let refreshToken = LocalStorageManager.shared.fetchRefreshToken() else {
+            print("Refresh token is missing.")
+            completion(.failure(CustomError.somethingWentWrong))
+            return
+        }
+        
+        print("Calling API to refresh token with refresh token:", refreshToken)
+        
+        NetworkManager.shared.refreshToken(refreshToken: refreshToken) { result in
+            
+            switch result {
+            case .success(let response):
+                
+                guard let accessToken = response.data?.accessToken,
+                      let refreshToken = response.data?.refreshToken else {
+                    completion(.failure(CustomError.somethingWentWrong))
+                    return
+                }
+                
+                LocalStorageManager.shared.updateCredential(accessToken)
+                
+                LocalStorageManager.shared.updateRefreshToken(refreshToken)
+                
+                completion(.success(accessToken))
+                
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    private func decodeJWT(_ token: String) throws -> DecodedJWT {
+        let expirationDate = Date(timeIntervalSinceNow: 3600)
+        
+        return DecodedJWT(expirationDate: expirationDate)
+    }
+}
+
+// Đây là một cấu trúc đại diện cho thông tin được trích xuất từ JWT.
+struct DecodedJWT {
+    let expirationDate: Date?
 }

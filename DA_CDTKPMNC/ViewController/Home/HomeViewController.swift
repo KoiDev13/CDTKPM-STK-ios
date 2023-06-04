@@ -41,34 +41,6 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
 
         setupUI()
-        
-//        guard let refreshToken = LocalStorageManager.shared.fetchCurrentUser()?.token?.refreshToken else {
-////            completion(.doNotRetry)
-//            return
-//        }
-//        
-//        NetworkManager.shared.refreshToken(refreshToken: refreshToken) { result in
-//            
-//          
-//            
-//            switch result {
-//                
-//            case .success(let response):
-//                
-//                debugPrint("Refresh token called successfully")
-//                
-//                LocalStorageManager.shared.updateCredential(response.data?.accessToken ?? "")
-//                
-//                LocalStorageManager.shared.updateRefreshToken(response.data?.refreshToken ?? "")
-//                
-////                completion(.retry)
-//                
-//            case .failure(let error):
-//                break
-////                completion(.doNotRetryWithError(error))
-//            }
-//        }
-        
         getAllStore()
         
     }
