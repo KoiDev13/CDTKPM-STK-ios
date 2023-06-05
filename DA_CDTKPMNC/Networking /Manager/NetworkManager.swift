@@ -115,6 +115,11 @@ extension NetworkManager: LoginRepositoryProtocol {
 }
 
 extension NetworkManager: StoreRepositoryProtocol {
+    
+    func shareVoucher(voucherCode: String, email: String, completionHandler: @escaping (Result<ShareVoucherResponse, Error>) -> Void) {
+        request(target: .shareVoucher(voucherCode: voucherCode, email: email), completion: completionHandler)
+    }
+    
     func getListVoucher(completionHandler: @escaping (Result<ListVoucherResponse, Error>) -> Void) {
         request(target: .getListVoucher, completion: completionHandler)
     }

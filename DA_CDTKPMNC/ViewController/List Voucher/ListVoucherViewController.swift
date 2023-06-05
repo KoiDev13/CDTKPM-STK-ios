@@ -32,6 +32,11 @@ class ListVoucherViewController: UIViewController {
 
         setupUI()
         
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         getListVoucher()
     }
     
@@ -44,6 +49,8 @@ class ListVoucherViewController: UIViewController {
             make.left.right.equalToSuperview()
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
+        
+        self.navigationItem.title = "My Coupons"
     }
     
     private func getListVoucher() {

@@ -207,6 +207,16 @@ struct ListVoucher: Codable {
     }
 }
 
+struct ShareVoucherResponse: Codable {
+    let success: Bool?
+    let message: String?
+
+    enum CodingKeys: String, CodingKey {
+        case success
+        case message
+    }
+}
+
 // MARK: - Voucher
 //struct Voucher: Codable {
 //    let voucherCode: String?

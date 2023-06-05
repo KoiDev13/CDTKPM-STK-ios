@@ -31,4 +31,6 @@ protocol StoreRepositoryProtocol {
                           completionHandler: @escaping (Result<GameLuckyWheelReponse, Error>) -> Void)
     
     func getListVoucher(completionHandler: @escaping (Result<ListVoucherResponse, Error>) -> Void)
+    
+    func shareVoucher(voucherCode: String, email: String, completionHandler: @escaping (Result<ShareVoucherResponse, Error>) -> Void)
 }

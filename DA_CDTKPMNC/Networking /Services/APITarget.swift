@@ -42,6 +42,8 @@ enum APITarget {
     case getGameOverUnder(_ userIsOver: Bool, campaignID: String)
     
     case getListVoucher
+    
+    case shareVoucher(voucherCode: String, email: String)
 }
 
 extension APITarget: TargetType {
@@ -93,6 +95,9 @@ extension APITarget: TargetType {
             
         case .getListVoucher:
             return "Voucher/All"
+            
+        case .shareVoucher:
+            return "Voucher/Share"
         }
     }
     
@@ -101,6 +106,8 @@ extension APITarget: TargetType {
         case .login, .signup, .verifyOTP, .refreshToken:
             return .post
             
+        case .shareVoucher:
+            return .put
         default:
             return .get
         }
@@ -112,7 +119,7 @@ extension APITarget: TargetType {
     
     var task: Moya.Task {
         switch self {
-        case .login, .signup, .verifyOTP, .refreshToken:
+        case .login, .signup, .verifyOTP, .refreshToken, .shareVoucher:
             return .requestParameters(
                 parameters: parameters,
                 encoding: JSONEncoding.default
@@ -163,6 +170,9 @@ extension APITarget: TargetType {
         case .refreshToken(let refreshToken):
             params["token"] = refreshToken
             
+        case .shareVoucher(let voucherCode, let email):
+            params["voucherCode"] = voucherCode
+            params["destinationUser"] = email
         default:
             return [:]
         }
