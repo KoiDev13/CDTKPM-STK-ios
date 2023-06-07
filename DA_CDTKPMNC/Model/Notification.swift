@@ -30,7 +30,7 @@ struct Notification: Codable {
     let title: String?
     let message: String?
     let createdAt: String?
-    let isRead: Bool?
+    var isRead: Bool?
 
     private enum CodingKeys: String, CodingKey {
         case id

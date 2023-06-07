@@ -11,7 +11,7 @@ class HomeViewModel {
     
     var stores: [Store] = []
     
-    
+    var notifications: [Notification] = []
     
     func getAllStore(completionHandler: @escaping (Result<AllStoresReponse, Error>) -> Void) {
         

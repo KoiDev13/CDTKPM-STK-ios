@@ -46,6 +46,8 @@ enum APITarget {
     case shareVoucher(voucherCode: String, email: String)
     
     case getListNotification
+    
+    case markNotificationAsRead(id: String)
 }
 
 extension APITarget: TargetType {
@@ -103,6 +105,9 @@ extension APITarget: TargetType {
             
         case .getListNotification:
             return "Notication"
+            
+        case .markNotificationAsRead(let id):
+            return "Notication/\(id)"
         }
     }
     
@@ -111,7 +116,7 @@ extension APITarget: TargetType {
         case .login, .signup, .verifyOTP, .refreshToken:
             return .post
             
-        case .shareVoucher:
+        case .shareVoucher, .markNotificationAsRead:
             return .put
         default:
             return .get

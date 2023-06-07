@@ -115,6 +115,10 @@ extension NetworkManager: LoginRepositoryProtocol {
 }
 
 extension NetworkManager: StoreRepositoryProtocol {
+    func markNotificationAsRead(id: String, completionHandler: @escaping (NotificationHandler) -> Void) {
+        request(target: .markNotificationAsRead(id: id), completion: completionHandler)
+    }
+    
     func getAllStores(completionHandler: @escaping (StoreHandler) -> Void) {
         request(target: .getListAllStore, completion: completionHandler)
     }
@@ -146,6 +150,8 @@ extension NetworkManager: StoreRepositoryProtocol {
     func getNotifications(completionHandler: @escaping (NotificationHandler) -> Void) {
         request(target: .getListNotification, completion: completionHandler)
     }
+    
+    
     
     
 //    func shareVoucher(voucherCode: String, email: String, completionHandler: @escaping (Result<ShareVoucherResponse, Error>) -> Void) {

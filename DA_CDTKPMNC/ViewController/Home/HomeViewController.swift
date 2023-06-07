@@ -111,7 +111,9 @@ class HomeViewController: UIViewController {
     }
     
     @objc private func bellButtonTapped() {
-        
+        let vc = ListNotificationViewController()
+        vc.notifications = viewModel.notifications
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     private func getAllStore() {
@@ -147,6 +149,8 @@ class HomeViewController: UIViewController {
                 let numberUnread = response.data?.notications?.numberUnread ?? 0
                 
                 self.updateBadgeLabel(numberUnread)
+                
+                self.viewModel.notifications = response.data?.notications?.notications ?? []
                 
             case .failure(let error):
                 debugPrint(error.localizedDescription)

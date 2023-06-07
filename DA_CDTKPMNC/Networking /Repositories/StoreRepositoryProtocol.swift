@@ -64,4 +64,6 @@ protocol StoreRepositoryProtocol {
     func shareVoucher(voucherCode: String, email: String, completionHandler: @escaping (ShareVoucherHandler) -> Void)
     
     func getNotifications(completionHandler: @escaping (NotificationHandler) -> Void)
+    
+    func markNotificationAsRead(id: String, completionHandler: @escaping (NotificationHandler) -> Void)
 }

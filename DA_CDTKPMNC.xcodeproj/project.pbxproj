@@ -14,6 +14,7 @@
 		1B1F00E52A13E62B008B7509 /* LuckyWheelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1F00E42A13E62B008B7509 /* LuckyWheelViewController.swift */; };
 		1B24EDE22A2CEBAE0018FA7B /* VoucherDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B24EDE12A2CEBAE0018FA7B /* VoucherDetailViewController.swift */; };
 		1B24EDE42A30D7050018FA7B /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B24EDE32A30D7040018FA7B /* Notification.swift */; };
+		1B24EDE72A30DFE50018FA7B /* ListNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B24EDE62A30DFE50018FA7B /* ListNotificationViewController.swift */; };
 		1B5DE0B82A1D1655005A0BE7 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B5DE0B72A1D1655005A0BE7 /* Store.swift */; };
 		1B5DE0BA2A1D17D8005A0BE7 /* StoreRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B5DE0B92A1D17D8005A0BE7 /* StoreRepositoryProtocol.swift */; };
 		1B5DE0BC2A1D1C76005A0BE7 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B5DE0BB2A1D1C76005A0BE7 /* HomeViewModel.swift */; };
@@ -60,6 +61,7 @@
 		1B1F00E42A13E62B008B7509 /* LuckyWheelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LuckyWheelViewController.swift; sourceTree = "<group>"; };
 		1B24EDE12A2CEBAE0018FA7B /* VoucherDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoucherDetailViewController.swift; sourceTree = "<group>"; };
 		1B24EDE32A30D7040018FA7B /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
+		1B24EDE62A30DFE50018FA7B /* ListNotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListNotificationViewController.swift; sourceTree = "<group>"; };
 		1B5DE0B72A1D1655005A0BE7 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		1B5DE0B92A1D17D8005A0BE7 /* StoreRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreRepositoryProtocol.swift; sourceTree = "<group>"; };
 		1B5DE0BB2A1D1C76005A0BE7 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -128,6 +130,14 @@
 				1B1F00DC2A0D6016008B7509 /* SMSConfirmationViewController.swift */,
 			);
 			path = "SMS ";
+			sourceTree = "<group>";
+		};
+		1B24EDE52A30DFD00018FA7B /* List Notification */ = {
+			isa = PBXGroup;
+			children = (
+				1B24EDE62A30DFE50018FA7B /* ListNotificationViewController.swift */,
+			);
+			path = "List Notification";
 			sourceTree = "<group>";
 		};
 		1B5DE0BD2A1D1F8D005A0BE7 /* Cell */ = {
@@ -316,6 +326,7 @@
 		1BE793402A09624800A9F42A /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				1B24EDE52A30DFD00018FA7B /* List Notification */,
 				1B5DE0CC2A272214005A0BE7 /* List Voucher */,
 				1B1F00DB2A0D5FF8008B7509 /* SMS  */,
 				1B983BC62A0AA10000C3D9E8 /* Sign up  */,
@@ -499,6 +510,7 @@
 				1BE7933F2A09605A00A9F42A /* CustomError.swift in Sources */,
 				1B5DE0CE2A27223A005A0BE7 /* ListVoucherViewController.swift in Sources */,
 				1B5DE0BC2A1D1C76005A0BE7 /* HomeViewModel.swift in Sources */,
+				1B24EDE72A30DFE50018FA7B /* ListNotificationViewController.swift in Sources */,
 				1BE7932B2A079CE900A9F42A /* LoginRepositoryProtocol.swift in Sources */,
 				1BE793282A0799AE00A9F42A /* APITarget.swift in Sources */,
 				1BE793432A09628B00A9F42A /* LoginViewModel.swift in Sources */,

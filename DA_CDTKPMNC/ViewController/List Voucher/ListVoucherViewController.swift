@@ -145,7 +145,6 @@ class VoucherTableViewCell: UITableViewCell, ReusableView {
             make.top.equalToSuperview().offset(12)
             make.left.right.equalToSuperview().inset(12)
             make.bottom.equalToSuperview()
-            make.height.equalTo(60)
         }
         
         titleLabel.snp.makeConstraints { make in
@@ -157,6 +156,7 @@ class VoucherTableViewCell: UITableViewCell, ReusableView {
             make.left.equalTo(titleLabel.snp.left)
             make.top.equalTo(titleLabel.snp.bottom)
             make.right.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-10)
         }
         
     }
@@ -168,4 +168,18 @@ class VoucherTableViewCell: UITableViewCell, ReusableView {
         contentLabel.text = voucher.description ?? ""
         
     }
+    
+    func setupViewModelNotification(_ notification: Notification) {
+        
+        titleLabel.text = notification.title ?? ""
+        
+        contentLabel.text = notification.message ?? ""
+        
+        if let isRead = notification.isRead, !isRead {
+            containerView.backgroundColor = .blue.withAlphaComponent(0.3)
+        } else {
+            containerView.backgroundColor = .white
+        }
+    }
+
 }
