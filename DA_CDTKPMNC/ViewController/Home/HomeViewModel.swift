@@ -15,7 +15,7 @@ class HomeViewModel {
     
     func getAllStore(completionHandler: @escaping (Result<AllStoresReponse, Error>) -> Void) {
         
-        NetworkManager.shared.getAllStore { result in
+        NetworkManager.shared.getAllStores { result in
             
             switch result {
                 

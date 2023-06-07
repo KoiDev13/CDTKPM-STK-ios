@@ -44,6 +44,8 @@ enum APITarget {
     case getListVoucher
     
     case shareVoucher(voucherCode: String, email: String)
+    
+    case getListNotification
 }
 
 extension APITarget: TargetType {
@@ -98,6 +100,9 @@ extension APITarget: TargetType {
             
         case .shareVoucher:
             return "Voucher/Share"
+            
+        case .getListNotification:
+            return "Notication"
         }
     }
     

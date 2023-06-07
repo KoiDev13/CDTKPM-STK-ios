@@ -37,6 +37,18 @@ class HomeViewController: UIViewController {
         return tableView
     }()
     
+    private lazy var badgeLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.textColor = .white
+        label.backgroundColor = .red
+        label.font = UIFont.systemFont(ofSize: 12)
+        label.layer.cornerRadius = 10
+        label.clipsToBounds = true
+        return label
+    }()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -45,15 +57,61 @@ class HomeViewController: UIViewController {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateNotificationBadge()
+    }
+    
     private func setupUI() {
         view.backgroundColor = .white
         view.addSubview(tableView)
         
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            make.left.right.equalToSuperview()
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            make.edges.equalTo(view.safeAreaLayoutGuide)
         }
+        
+        let buttonItem = UIBarButtonItem()
+        
+        // Create a custom view for the button
+        let containerView = UIView()
+        
+        // Create the bell icon image view
+        let bellImageView = UIImageView(image: UIImage(systemName: "bell")) // Replace "bell-icon" with the actual name of your bell icon image
+        
+        // Add the bell icon and badge label to the container view
+        containerView.addSubview(bellImageView)
+        containerView.addSubview(badgeLabel)
+        
+        // Add a target action to the button
+        containerView.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(bellButtonTapped))
+        containerView.addGestureRecognizer(tapGesture)
+        
+        // Set the container view as the custom view for the UIBarButtonItem
+        buttonItem.customView = containerView
+        
+        // Set the UIBarButtonItem as the right bar button item for your navigation bar
+        navigationItem.rightBarButtonItem = buttonItem
+        
+        // Apply SnapKit constraints
+        containerView.snp.makeConstraints { make in
+            make.width.equalTo(30)
+            make.height.equalTo(30)
+        }
+        
+        bellImageView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        badgeLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(-5)
+            make.trailing.equalToSuperview().offset(6)
+            make.width.height.equalTo(20)
+        }
+    }
+    
+    @objc private func bellButtonTapped() {
+        
     }
     
     private func getAllStore() {
@@ -73,6 +131,32 @@ class HomeViewController: UIViewController {
                 debugPrint(error.localizedDescription)
             }
         }
+    }
+    
+    private func updateNotificationBadge() {
+        
+        NetworkManager.shared.getNotifications { [weak self] result in
+            
+            guard let self = self else {
+                return
+            }
+            
+            switch result {
+            case .success(let response):
+                
+                let numberUnread = response.data?.notications?.numberUnread ?? 0
+                
+                self.updateBadgeLabel(numberUnread)
+                
+            case .failure(let error):
+                debugPrint(error.localizedDescription)
+            }
+        }
+    }
+
+    private func updateBadgeLabel(_ numberUnread: Int) {
+        badgeLabel.isHidden = (numberUnread == 0)
+        badgeLabel.text = String(numberUnread)
     }
     
 }

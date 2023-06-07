@@ -3,4 +3,54 @@
    uuid = "0CDC20F1-F1A0-4ABA-9EEA-65330DB92DCD"
    type = "0"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "98C3A17B-8F7A-4D8F-9E4B-46345C9B7506"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "DA_CDTKPMNC/ViewController/Home/HomeViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "147"
+            endingLineNumber = "147"
+            landmarkName = "updateNotificationBadge()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "98C3A17B-8F7A-4D8F-9E4B-46345C9B7506 - d01c9730a2305b41"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Result&lt;DA_CDTKPMNC.NotificationResponse, Swift.Error&gt;) -&gt; () in DA_CDTKPMNC.HomeViewController.updateNotificationBadge() -&gt; ()"
+                  moduleName = "DA_CDTKPMNC"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/vphson/Desktop/DA_CDTKPMNC/DA_CDTKPMNC/ViewController/Home/HomeViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "148"
+                  endingLineNumber = "148"
+                  offsetFromSymbolStart = "336">
+               </Location>
+               <Location
+                  uuid = "98C3A17B-8F7A-4D8F-9E4B-46345C9B7506 - d01c9730a2305b41"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Result&lt;DA_CDTKPMNC.NotificationResponse, Swift.Error&gt;) -&gt; () in DA_CDTKPMNC.HomeViewController.updateNotificationBadge() -&gt; ()"
+                  moduleName = "DA_CDTKPMNC"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/vphson/Desktop/DA_CDTKPMNC/DA_CDTKPMNC/ViewController/Home/HomeViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "148"
+                  endingLineNumber = "148"
+                  offsetFromSymbolStart = "490">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

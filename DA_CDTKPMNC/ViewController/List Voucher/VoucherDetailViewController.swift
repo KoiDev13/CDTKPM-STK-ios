@@ -148,7 +148,7 @@ class VoucherDetailViewController: UIViewController {
                 let message = response.message ?? ""
                 
                 if success {
-                    self.showMessage(message, title: "Notify") 
+                    self.showMessage(message, title: "Notify")
                 } else {
                     self.showAlert("Share voucher not successfuly")
                 }

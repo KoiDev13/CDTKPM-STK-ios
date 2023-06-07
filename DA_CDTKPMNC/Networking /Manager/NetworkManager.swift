@@ -115,36 +115,68 @@ extension NetworkManager: LoginRepositoryProtocol {
 }
 
 extension NetworkManager: StoreRepositoryProtocol {
-    
-    func shareVoucher(voucherCode: String, email: String, completionHandler: @escaping (Result<ShareVoucherResponse, Error>) -> Void) {
-        request(target: .shareVoucher(voucherCode: voucherCode, email: email), completion: completionHandler)
+    func getAllStores(completionHandler: @escaping (StoreHandler) -> Void) {
+        request(target: .getListAllStore, completion: completionHandler)
     }
     
-    func getListVoucher(completionHandler: @escaping (Result<ListVoucherResponse, Error>) -> Void) {
-        request(target: .getListVoucher, completion: completionHandler)
+    func canJoinPlayGame(campaignID: String, completionHandler: @escaping (GameHandler) -> Void) {
+        request(target: .canJoinPlayGame(campaignID), completion: completionHandler)
     }
-    
-    func getGameOverUnder(userIsOver: Bool, campaignID: String, completionHandler: @escaping (Result<GameLuckyWheelReponse, Error>) -> Void) {
-        request(target: .getGameOverUnder(userIsOver, campaignID: campaignID), completion: completionHandler)
-    }
-    
-    func getGameLuckyWheel(campaignID: String, completionHandler: @escaping (Result<GameLuckyWheelReponse, Error>) -> Void) {
-        request(target: .getGameLuckyWheel(campaignID), completion: completionHandler)
-    }
-    
     
     func getProductItem(storeID: String, completionHandler: @escaping (ProductItemHandler) -> Void) {
         request(target: .getProductItem(storeID), completion: completionHandler)
     }
     
-    
-    func canJoinPlayGame(campaignID: String,
-                         completionHandler: @escaping (GameHandler) -> Void) {
-        request(target: .canJoinPlayGame(campaignID), completion: completionHandler)
+    func getGameLuckyWheel(campaignID: String, completionHandler: @escaping (GameLuckyWheelHandler) -> Void) {
+        request(target: .getGameLuckyWheel(campaignID), completion: completionHandler)
     }
     
-    func getAllStore(completionHandler: @escaping (StoreHandler) -> Void) {
-        request(target: .getListAllStore, completion: completionHandler)
+    func getGameOverUnder(userIsOver: Bool, campaignID: String, completionHandler: @escaping (GameLuckyWheelHandler) -> Void) {
+        request(target: .getGameOverUnder(userIsOver, campaignID: campaignID), completion: completionHandler)
     }
+    
+    func getListVoucher(completionHandler: @escaping (ListVoucherHandler) -> Void) {
+        request(target: .getListVoucher, completion: completionHandler)
+    }
+    
+    func shareVoucher(voucherCode: String, email: String, completionHandler: @escaping (ShareVoucherHandler) -> Void) {
+        request(target: .shareVoucher(voucherCode: voucherCode, email: email), completion: completionHandler)
+    }
+    
+    func getNotifications(completionHandler: @escaping (NotificationHandler) -> Void) {
+        request(target: .getListNotification, completion: completionHandler)
+    }
+    
+    
+//    func shareVoucher(voucherCode: String, email: String, completionHandler: @escaping (Result<ShareVoucherResponse, Error>) -> Void) {
+//        request(target: .shareVoucher(voucherCode: voucherCode, email: email), completion: completionHandler)
+//    }
+//
+//    func getListVoucher(completionHandler: @escaping (Result<ListVoucherResponse, Error>) -> Void) {
+//        request(target: .getListVoucher, completion: completionHandler)
+//    }
+//
+//    func getGameOverUnder(userIsOver: Bool, campaignID: String, completionHandler: @escaping (Result<GameLuckyWheelReponse, Error>) -> Void) {
+//        request(target: .getGameOverUnder(userIsOver, campaignID: campaignID), completion: completionHandler)
+//    }
+//
+//    func getGameLuckyWheel(campaignID: String, completionHandler: @escaping (Result<GameLuckyWheelReponse, Error>) -> Void) {
+//        request(target: .getGameLuckyWheel(campaignID), completion: completionHandler)
+//    }
+//
+//
+//    func getProductItem(storeID: String, completionHandler: @escaping (ProductItemHandler) -> Void) {
+//        request(target: .getProductItem(storeID), completion: completionHandler)
+//    }
+//
+//
+//    func canJoinPlayGame(campaignID: String,
+//                         completionHandler: @escaping (GameHandler) -> Void) {
+//        request(target: .canJoinPlayGame(campaignID), completion: completionHandler)
+//    }
+//
+//    func getAllStore(completionHandler: @escaping (StoreHandler) -> Void) {
+//        request(target: .getListAllStore, completion: completionHandler)
+//    }
 }
 

@@ -13,6 +13,7 @@
 		1B1F00E32A1141AD008B7509 /* DiceeGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1F00E22A1141AD008B7509 /* DiceeGameViewController.swift */; };
 		1B1F00E52A13E62B008B7509 /* LuckyWheelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1F00E42A13E62B008B7509 /* LuckyWheelViewController.swift */; };
 		1B24EDE22A2CEBAE0018FA7B /* VoucherDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B24EDE12A2CEBAE0018FA7B /* VoucherDetailViewController.swift */; };
+		1B24EDE42A30D7050018FA7B /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B24EDE32A30D7040018FA7B /* Notification.swift */; };
 		1B5DE0B82A1D1655005A0BE7 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B5DE0B72A1D1655005A0BE7 /* Store.swift */; };
 		1B5DE0BA2A1D17D8005A0BE7 /* StoreRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B5DE0B92A1D17D8005A0BE7 /* StoreRepositoryProtocol.swift */; };
 		1B5DE0BC2A1D1C76005A0BE7 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B5DE0BB2A1D1C76005A0BE7 /* HomeViewModel.swift */; };
@@ -58,6 +59,7 @@
 		1B1F00E22A1141AD008B7509 /* DiceeGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiceeGameViewController.swift; sourceTree = "<group>"; };
 		1B1F00E42A13E62B008B7509 /* LuckyWheelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LuckyWheelViewController.swift; sourceTree = "<group>"; };
 		1B24EDE12A2CEBAE0018FA7B /* VoucherDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoucherDetailViewController.swift; sourceTree = "<group>"; };
+		1B24EDE32A30D7040018FA7B /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		1B5DE0B72A1D1655005A0BE7 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		1B5DE0B92A1D17D8005A0BE7 /* StoreRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreRepositoryProtocol.swift; sourceTree = "<group>"; };
 		1B5DE0BB2A1D1C76005A0BE7 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -288,6 +290,7 @@
 				1B1F00DE2A0DF902008B7509 /* UserSignUp.swift */,
 				1B5DE0B72A1D1655005A0BE7 /* Store.swift */,
 				1B5DE0CA2A208FFF005A0BE7 /* Game.swift */,
+				1B24EDE32A30D7040018FA7B /* Notification.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -499,6 +502,7 @@
 				1BE7932B2A079CE900A9F42A /* LoginRepositoryProtocol.swift in Sources */,
 				1BE793282A0799AE00A9F42A /* APITarget.swift in Sources */,
 				1BE793432A09628B00A9F42A /* LoginViewModel.swift in Sources */,
+				1B24EDE42A30D7050018FA7B /* Notification.swift in Sources */,
 				1B5DE0CB2A208FFF005A0BE7 /* Game.swift in Sources */,
 				1BE7931A2A07869900A9F42A /* Constants.swift in Sources */,
 				1B5DE0BF2A1D1FAD005A0BE7 /* ServiceTableViewCell.swift in Sources */,
