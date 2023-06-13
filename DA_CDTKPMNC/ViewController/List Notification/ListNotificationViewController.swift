@@ -126,8 +126,21 @@ extension ListNotificationViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
       
         let targetId = notifications[indexPath.row].id
+        
+        let isRead = notifications[indexPath.row].isRead ?? false
+        
+        if !isRead {
+            markNotificationAsRead(targetId)
+        }
 
-        markNotificationAsRead(targetId)
+        let bottomSheet = CustomModalViewController()
+        bottomSheet.titleLabel.text = notifications[indexPath.row].title
+        bottomSheet.notesLabel.text = notifications[indexPath.row].message
+        
+        bottomSheet.modalPresentationStyle = .overCurrentContext
+        // Keep animated value as false
+        // Custom Modal presentation animation will be handled in VC itself
+        self.present(bottomSheet, animated: false)
     }
 }
 

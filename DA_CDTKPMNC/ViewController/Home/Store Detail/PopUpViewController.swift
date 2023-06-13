@@ -34,6 +34,10 @@ class PopUpViewController: UIViewController {
         button.setTitle("Dismiss", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .systemRed
+        button.layer.cornerRadius = 12
+        button.snp.makeConstraints { make in
+            make.height.equalTo(48)
+        }
         button.addTarget(self, action: #selector(dismissButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -41,8 +45,12 @@ class PopUpViewController: UIViewController {
     private lazy var playButton: UIButton = {
         let button = UIButton(type: .custom)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .systemPink
+        button.backgroundColor = .systemBlue
         button.setTitle("Play", for: .normal)
+        button.layer.cornerRadius = 12
+        button.snp.makeConstraints { make in
+            make.height.equalTo(48)
+        }
         button.addTarget(self, action: #selector(playGameButtonTapped), for: .touchUpInside)
         return button
     }()

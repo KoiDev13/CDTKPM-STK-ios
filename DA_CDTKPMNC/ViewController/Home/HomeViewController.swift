@@ -45,21 +45,21 @@ class HomeViewController: UIViewController {
         label.font = UIFont.systemFont(ofSize: 12)
         label.layer.cornerRadius = 10
         label.clipsToBounds = true
+        label.isHidden = true
         return label
     }()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setupUI()
-        getAllStore()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
         updateNotificationBadge()
+        getAllStore()
     }
     
     private func setupUI() {

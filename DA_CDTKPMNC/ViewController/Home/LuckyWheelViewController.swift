@@ -30,10 +30,10 @@ class LuckyWheelViewController: UIViewController, LuckyWheelDataSource,LuckyWhee
         view.addSubview(wheel!)
         
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
-            
-            self.fetchData()
-        }
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+//
+////            self.fetchData()
+//        }
         
 //        wheel?.addTarget(self, action: #selector(wheelTapped), for: .touchUpInside)
        
@@ -105,6 +105,10 @@ class LuckyWheelViewController: UIViewController, LuckyWheelDataSource,LuckyWhee
     
     func wheelDidChangeValue(_ newValue: Int) {
         print(newValue)
+    }
+    
+    func didRotate() {
+        fetchData()
     }
 
 }
