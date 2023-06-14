@@ -144,6 +144,11 @@ extension APITarget: TargetType {
     
     var headers: [String : String]? {
         var headers : [String: String] = [:]
+        
+        if let token = LocalStorageManager.shared.fetchCredential() {
+            headers["Authorization"] = "Bearer \(token)"
+        }
+        
         switch self {
         default:
             headers["Content-Type"] = "application/json"

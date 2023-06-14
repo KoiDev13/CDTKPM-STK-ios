@@ -53,6 +53,7 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+       
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -60,6 +61,7 @@ class HomeViewController: UIViewController {
         navigationController?.setNavigationBarHidden(false, animated: animated)
         updateNotificationBadge()
         getAllStore()
+        
     }
     
     private func setupUI() {
@@ -150,7 +152,17 @@ class HomeViewController: UIViewController {
                 
                 self.updateBadgeLabel(numberUnread)
                 
-                self.viewModel.notifications = response.data?.notications?.notications ?? []
+                let notifi = response.data?.notications?.notications ?? []
+                
+                let unReadNotifition = notifi.filter {
+                    $0.isRead ?? false
+                }
+                
+                let readNotif  = notifi.filter {
+                    !($0.isRead ?? false)
+                }
+                
+                self.viewModel.notifications = readNotif + unReadNotifition
                 
             case .failure(let error):
                 debugPrint(error.localizedDescription)

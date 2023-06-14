@@ -21,7 +21,22 @@ enum CustomError: Error, LocalizedError {
         }
     }
 }
+enum NetworkError: Error {
+    case invalidResponse
+    case requestFailed
+    case invalidURL
 
+    var localizedDescription: String {
+        switch self {
+        case .invalidResponse:
+            return "Invalid response from the server."
+        case .requestFailed:
+            return "Request failed. Please try again later."
+        case .invalidURL:
+            return "Invalid URL."
+        }
+    }
+}
 struct APIError: Error, Codable, LocalizedError {
     let message: String
 

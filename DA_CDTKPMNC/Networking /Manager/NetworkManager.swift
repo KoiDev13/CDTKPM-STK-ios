@@ -16,14 +16,23 @@ final class NetworkManager: APIClientProtocol {
     
     private let session: Session
     
-    private var tokenInterceptor: TokenInterceptor?
+    private let tokenManager: TokenManager
     
+//    private var targetRequests: [TargetType] = []
+//
+//    private var targetRequestsCallAgained: [TargetType] = []
+//
+//    private let apiQueue = DispatchQueue(label: "com.example.api
     
     init() {
-        let interceptor = TokenInterceptor()
-        tokenInterceptor = interceptor
-        session = Session(interceptor: interceptor)
         
+        session = Session()
+        
+        let accessToken = LocalStorageManager.shared.fetchCredential() ?? ""
+        
+        let refreshToken = LocalStorageManager.shared.fetchRefreshToken() ?? ""
+        
+        tokenManager = TokenManager(accessToken: accessToken, refreshToken: refreshToken)
     }
     
     var provider: MoyaProvider<TargetType> {
@@ -41,39 +50,136 @@ final class NetworkManager: APIClientProtocol {
     }
     
     
-    func request<T: Decodable>(
-        target: TargetType,
-        completion: @escaping (Result<T, Error>) -> ()
-    ) {
-        provider.request(target) { result in
+    
+//    func request<T: Decodable>(
+//        target: TargetType,
+//        completion: @escaping (Result<T, Error>) -> Void
+//    ) {
+//
+//        if tokenManager.getAccessToken().isEmpty {
+//            provider.request(target) { result in
+//                switch result {
+//                case let .success(response):
+//                    let statusCode = response.statusCode
+//                    if (200..<300).contains(statusCode) {
+//                        do {
+//                            let results = try JSONDecoder().decode(T.self, from: response.data)
+//                            completion(.success(results))
+//                        } catch let error {
+//                            completion(.failure(error))
+//                        }
+//                    } else {
+//                        do {
+//                            let results = try JSONDecoder().decode(APIError.self, from: response.data)
+//                            completion(.failure(results))
+//                        } catch let error {
+//                            completion(.failure(error))
+//                        }
+//                    }
+//                case let .failure(error):
+//                    completion(.failure(error))
+//                }
+//            }
+//        } else {
+//
+//            let group = DispatchGroup()
+//
+//            group.enter()
+//
+//            tokenManager.refreshTokenIfNeeded { result in
+//                defer {
+//                    group.leave()
+//                }
+//                switch result {
+//
+//                case .success:
+//                    self.provider.request(target) { result in
+//                        switch result {
+//                        case let .success(response):
+//                            let statusCode = response.statusCode
+//                            if (200..<300).contains(statusCode) {
+//                                do {
+//                                    let results = try JSONDecoder().decode(T.self, from: response.data)
+//                                    completion(.success(results))
+//                                } catch let error {
+//                                    completion(.failure(error))
+//                                }
+//                            } else {
+//                                do {
+//                                    let results = try JSONDecoder().decode(APIError.self, from: response.data)
+//                                    completion(.failure(results))
+//                                } catch let error {
+//                                    completion(.failure(error))
+//                                }
+//                            }
+//                        case let .failure(error):
+//                            completion(.failure(error))
+//                        }
+//                    }
+//                case .failure(let error):
+//                    completion(.failure(error))
+//                    }
+//                }
+//            }
+//        }
+
+        func request<T: Decodable>(
+            target: TargetType,
+            completion: @escaping (Result<T, Error>) -> ()
+        ) {
+            provider.request(target) { result in
+                switch result {
+                case let .success(response):
+                    let statusCode = response.statusCode
+                    if (200..<300).contains(statusCode) {
+                        do {
+                            let results = try JSONDecoder().decode(T.self, from: response.data)
+                            completion(.success(results))
+                        } catch let error {
+                            completion(.failure(error))
+                        }
+                    } else {
+                        do {
+                            let results = try JSONDecoder().decode(APIError.self, from: response.data)
+                            completion(.failure(results))
+                        } catch let error {
+                            completion(.failure(error))
+                        }
+                    }
+                case let .failure(error):
+                    completion(.failure(error))
+                }
+            }
+        }
+}
+
+extension NetworkManager: LoginRepositoryProtocol {
+    func refreshToken(refreshToken: String, completionHandler: @escaping (RefreshTokenHandler) -> Void) {
+        
+        provider.request(.refreshToken(refreshToken)) { result in
             switch result {
             case let .success(response):
                 let statusCode = response.statusCode
                 if (200..<300).contains(statusCode) {
                     do {
-                        let results = try JSONDecoder().decode(T.self, from: response.data)
-                        completion(.success(results))
+                        let results = try JSONDecoder().decode(RefreshTokenResponse.self, from: response.data)
+                        completionHandler(.success(results))
                     } catch let error {
-                        completion(.failure(error))
+                        completionHandler(.failure(error))
                     }
                 } else {
                     do {
                         let results = try JSONDecoder().decode(APIError.self, from: response.data)
-                        completion(.failure(results))
+                        completionHandler(.failure(results))
                     } catch let error {
-                        completion(.failure(error))
+                        completionHandler(.failure(error))
                     }
                 }
             case let .failure(error):
-                completion(.failure(error))
+                completionHandler(.failure(error))
             }
         }
-    }
-}
-
-extension NetworkManager: LoginRepositoryProtocol {
-    func refreshToken(refreshToken: String, completionHandler: @escaping (RefreshTokenHandler) -> Void) {
-        request(target: .refreshToken(refreshToken), completion: completionHandler)
+        //        request(target: .refreshToken(refreshToken), completion: completionHandler)
     }
     
     func getListDistricts(id: String, completionHandler: @escaping (DistrictsHandler) -> Void) {
@@ -154,35 +260,35 @@ extension NetworkManager: StoreRepositoryProtocol {
     
     
     
-//    func shareVoucher(voucherCode: String, email: String, completionHandler: @escaping (Result<ShareVoucherResponse, Error>) -> Void) {
-//        request(target: .shareVoucher(voucherCode: voucherCode, email: email), completion: completionHandler)
-//    }
-//
-//    func getListVoucher(completionHandler: @escaping (Result<ListVoucherResponse, Error>) -> Void) {
-//        request(target: .getListVoucher, completion: completionHandler)
-//    }
-//
-//    func getGameOverUnder(userIsOver: Bool, campaignID: String, completionHandler: @escaping (Result<GameLuckyWheelReponse, Error>) -> Void) {
-//        request(target: .getGameOverUnder(userIsOver, campaignID: campaignID), completion: completionHandler)
-//    }
-//
-//    func getGameLuckyWheel(campaignID: String, completionHandler: @escaping (Result<GameLuckyWheelReponse, Error>) -> Void) {
-//        request(target: .getGameLuckyWheel(campaignID), completion: completionHandler)
-//    }
-//
-//
-//    func getProductItem(storeID: String, completionHandler: @escaping (ProductItemHandler) -> Void) {
-//        request(target: .getProductItem(storeID), completion: completionHandler)
-//    }
-//
-//
-//    func canJoinPlayGame(campaignID: String,
-//                         completionHandler: @escaping (GameHandler) -> Void) {
-//        request(target: .canJoinPlayGame(campaignID), completion: completionHandler)
-//    }
-//
-//    func getAllStore(completionHandler: @escaping (StoreHandler) -> Void) {
-//        request(target: .getListAllStore, completion: completionHandler)
-//    }
+    //    func shareVoucher(voucherCode: String, email: String, completionHandler: @escaping (Result<ShareVoucherResponse, Error>) -> Void) {
+    //        request(target: .shareVoucher(voucherCode: voucherCode, email: email), completion: completionHandler)
+    //    }
+    //
+    //    func getListVoucher(completionHandler: @escaping (Result<ListVoucherResponse, Error>) -> Void) {
+    //        request(target: .getListVoucher, completion: completionHandler)
+    //    }
+    //
+    //    func getGameOverUnder(userIsOver: Bool, campaignID: String, completionHandler: @escaping (Result<GameLuckyWheelReponse, Error>) -> Void) {
+    //        request(target: .getGameOverUnder(userIsOver, campaignID: campaignID), completion: completionHandler)
+    //    }
+    //
+    //    func getGameLuckyWheel(campaignID: String, completionHandler: @escaping (Result<GameLuckyWheelReponse, Error>) -> Void) {
+    //        request(target: .getGameLuckyWheel(campaignID), completion: completionHandler)
+    //    }
+    //
+    //
+    //    func getProductItem(storeID: String, completionHandler: @escaping (ProductItemHandler) -> Void) {
+    //        request(target: .getProductItem(storeID), completion: completionHandler)
+    //    }
+    //
+    //
+    //    func canJoinPlayGame(campaignID: String,
+    //                         completionHandler: @escaping (GameHandler) -> Void) {
+    //        request(target: .canJoinPlayGame(campaignID), completion: completionHandler)
+    //    }
+    //
+    //    func getAllStore(completionHandler: @escaping (StoreHandler) -> Void) {
+    //        request(target: .getListAllStore, completion: completionHandler)
+    //    }
 }
 
