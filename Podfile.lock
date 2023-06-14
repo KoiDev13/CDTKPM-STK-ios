@@ -1,0 +1,46 @@
+PODS:
+  - Alamofire (5.6.4)
+  - BonMot (6.1.2)
+  - iOSLuckyWheel (0.1.1)
+  - JWTDecode (3.0.1)
+  - Kingfisher (7.6.2)
+  - Moya (15.0.0):
+    - Moya/Core (= 15.0.0)
+  - Moya/Core (15.0.0):
+    - Alamofire (~> 5.0)
+  - SnapKit (5.6.0)
+  - SwiftyUserDefaults (5.3.0)
+
+DEPENDENCIES:
+  - BonMot
+  - iOSLuckyWheel
+  - JWTDecode (~> 3.0)
+  - Kingfisher (~> 7.0)
+  - Moya (~> 15.0)
+  - SnapKit
+  - SwiftyUserDefaults
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - BonMot
+    - iOSLuckyWheel
+    - JWTDecode
+    - Kingfisher
+    - Moya
+    - SnapKit
+    - SwiftyUserDefaults
+
+SPEC CHECKSUMS:
+  Alamofire: 4e95d97098eacb88856099c4fc79b526a299e48c
+  BonMot: d2920df6476104efc5e379abdb834cbf475c81ab
+  iOSLuckyWheel: ee2fb6d2bca159f57d6536524aab8db4a2cf9376
+  JWTDecode: 2eed97c2fa46ccaf3049a787004eedf0be474a87
+  Kingfisher: 6c5449c6450c5239166510ba04afe374a98afc4f
+  Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
+  SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
+  SwiftyUserDefaults: 63f80248cf5bfb3458825d9a78f2eb7e1293a040
+
+PODFILE CHECKSUM: a7332d41132d456ca460a67ffbafffc833f43ebe
+
+COCOAPODS: 1.12.0
