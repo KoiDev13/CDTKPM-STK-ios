@@ -43,6 +43,14 @@ class VoucherDetailViewController: UIViewController {
         return label
     }()
     
+    private lazy var expiredDateLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 2
+        label.textAlignment = .center
+        label.textColor = UIColor(hex: "#797979")
+        return label
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -52,7 +60,7 @@ class VoucherDetailViewController: UIViewController {
         view.addSubview(titleLabel)
         view.addSubview(contentLabel)
         view.addSubview(containerView)
-        
+        view.addSubview(expiredDateLabel)
         
         storeTitleLabel.snp.makeConstraints { make in
             make.left.right.equalToSuperview().inset(20)
@@ -69,8 +77,14 @@ class VoucherDetailViewController: UIViewController {
             make.top.equalTo(titleLabel.snp.bottom).offset(20)
         }
         
+        expiredDateLabel.snp.makeConstraints { make in
+            make.left.right.equalToSuperview().inset(20)
+            make.top.equalTo(contentLabel.snp.bottom).offset(20)
+        }
+
+        
         containerView.snp.makeConstraints { make in
-            make.top.equalTo(contentLabel.snp.bottom).offset(50)
+            make.top.equalTo(expiredDateLabel.snp.bottom).offset(50)
             make.size.equalTo(300)
             make.centerX.equalToSuperview()
         }
@@ -81,6 +95,14 @@ class VoucherDetailViewController: UIViewController {
         titleLabel.text = voucher?.voucherName?.capitalized
         
         contentLabel.text = voucher?.description?.capitalized
+        
+        let day = voucher?.expiresOn?.day ?? 1
+        
+        let month = voucher?.expiresOn?.month ?? 1
+        
+        let year = voucher?.expiresOn?.year ?? 2000
+        
+        expiredDateLabel.text = "Expires on: \(day)-\(month)-\(year)"
         
         storeTitleLabel.text = "Store name: \(voucher?.storeName ?? "")"
         

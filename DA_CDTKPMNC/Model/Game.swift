@@ -37,7 +37,8 @@ struct Voucher: Codable {
     let storeName: String?
     let campaignID: String?
     let campaignName: String?
-
+    let expiresOn: ExpiresOn?
+    
     enum CodingKeys: String, CodingKey {
         case voucherCode
         case voucherName
@@ -46,6 +47,7 @@ struct Voucher: Codable {
         case storeName
         case campaignID
         case campaignName
+        case expiresOn
     }
 }
 

@@ -10,7 +10,7 @@ import Foundation
 enum Constants {
     enum API {
 #if DEBUG
-        static let baseURL = "https://api.vovanthuong.online/"
+        static let baseURL = "http://api.vovanthuong.online/"
 #else
         
 #endif

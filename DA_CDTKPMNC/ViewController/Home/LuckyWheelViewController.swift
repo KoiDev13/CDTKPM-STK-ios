@@ -9,7 +9,7 @@ import UIKit
 import iOSLuckyWheel
 
 class LuckyWheelViewController: UIViewController, LuckyWheelDataSource,LuckyWheelDelegate {
-
+    
     var wheel :LuckyWheel?
     var items = [WheelItem]()
     
@@ -28,20 +28,7 @@ class LuckyWheelViewController: UIViewController, LuckyWheelDataSource,LuckyWhee
         wheel?.infinteRotation = true
         
         view.addSubview(wheel!)
-        
-        
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
-//
-////            self.fetchData()
-//        }
-        
-//        wheel?.addTarget(self, action: #selector(wheelTapped), for: .touchUpInside)
-       
     }
-    
-//    @objc func wheelTapped() {
-//        wheel.rota
-//    }
     
     private func fetchData() {
         NetworkManager.shared.getGameLuckyWheel(campaignID: campaignID) { [weak self] result in
@@ -106,9 +93,12 @@ class LuckyWheelViewController: UIViewController, LuckyWheelDataSource,LuckyWhee
     func wheelDidChangeValue(_ newValue: Int) {
         print(newValue)
     }
-    
+
     func didRotate() {
-        fetchData()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            self.fetchData()
+        }
     }
 
 }
