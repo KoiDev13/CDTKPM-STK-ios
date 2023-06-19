@@ -190,7 +190,7 @@ class DiceeGameViewController: UIViewController {
                 
             case .success(let response):
                 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                     self.timer?.invalidate()
                     let isTai = response.data?.gameData?.gameIsOver ?? false
                     
@@ -212,16 +212,14 @@ class DiceeGameViewController: UIViewController {
                     
                     if isWin {
                         
-                        
-                        
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                             self.showMessage(response.data?.voucher?.voucherName ?? "", title: "Thông báo") {
                                 self.navigationController?.popToRootViewController(animated: true)
                             }
                         }
                         
                     } else {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                             self.showMessage("Chúc bạn may mắn lần sau", title: "Thông báo") {
                                 self.navigationController?.popToRootViewController(animated: true)
                             }

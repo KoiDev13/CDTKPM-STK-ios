@@ -28,13 +28,13 @@ class LoginViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private lazy var logoImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "ic_logo_mini")
-        imageView.contentMode = .scaleToFill
-        imageView.clipsToBounds = true
-        return imageView
-    }()
+//    private lazy var logoImageView: UIImageView = {
+//        let imageView = UIImageView()
+//        imageView.image = UIImage(named: "ic_logo_mini")
+//        imageView.contentMode = .scaleToFill
+//        imageView.clipsToBounds = true
+//        return imageView
+//    }()
 
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -131,15 +131,15 @@ class LoginViewController: UIViewController {
             make.width.equalToSuperview()
         }
         
-        containerView.addSubview(logoImageView)
-        logoImageView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(50)
-            make.centerX.equalToSuperview()
-        }
+//        containerView.addSubview(logoImageView)
+//        logoImageView.snp.makeConstraints { make in
+//            make.top.equalToSuperview().offset(50)
+//            make.centerX.equalToSuperview()
+//        }
     
         containerView.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(logoImageView.snp.bottom).offset(105)
+            make.top.equalToSuperview().offset(50)
             make.left.right.equalToSuperview().inset(28)
         }
         
